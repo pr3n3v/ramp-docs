@@ -311,7 +311,7 @@
     <h1>How Ramp Measures a Student</h1>
     <p class="standfirst">What we assess, how often, what the numbers mean, and the list of things we have not yet proved.</p>
     <div class="meta">
-      <span><b>Version</b> 11 September 2026</span>
+      <span><b>Version</b> 17 September 2026</span>
       <span><b>Status</b> Draft for review</span>
       <span><b>Prepared for</b> Partner institutions</span>
       <span><b>Data region</b> Singapore</span>
@@ -320,8 +320,8 @@
 
   <div class="notice">
     <h2>Read this first</h2>
-    <p>The Chinese in this document was written by a machine and has not yet been checked by a Chinese-native teacher. Please read the English as authoritative and tell us where the Chinese is wrong. Every claim below is either measured or listed in section 7 as unproved.</p>
-    <p class="zh">本文中的中文由机器生成，尚未经过中文母语教师审核。请以英文为准，并告诉我们中文哪里不妥。下文的每一项说法，要么已经过实测，要么已列在第 7 节的未验证清单里。</p>
+    <p>The Chinese in this document was written by a machine and has not yet been checked by a Chinese-native teacher. Please read the English as authoritative and tell us where the Chinese is wrong. Every claim below is either measured, listed in section 7 as unproved, or marked as a plan or an estimate.</p>
+    <p class="zh">本文中的中文由机器生成，尚未经过中文母语教师审核。请以英文为准，并告诉我们中文哪里不妥。下文的每一项说法，要么已经过实测，要么已列在第 7 节的未验证清单里，要么明确标为计划或估算。</p>
   </div>
 
   <section>
@@ -414,10 +414,10 @@
     <div class="row">
       <div class="prose">
         <p>This is the part of the product we consider our own, and the part we would most like reviewed.</p>
-        <p><b>Every failure is diagnosed as language or idea.</b> When a student studying in a second language gets a science question wrong, a conventional system records that she does not understand the science. Often she understood it and could not read the question. We label each failure <code>language</code>, <code>concept</code>, or both, and only a concept failure counts against her understanding of the subject.</p>
+        <p><b>Every failure is diagnosed as language or idea.</b> When a student studying in a second language gets a science question wrong, a conventional system records that she does not understand the science. Often she understood it and could not read the question. We label each failure <code>language</code> or <code>concept</code>, and only a concept failure counts against her understanding of the subject. If her wrong first answer took under five seconds and the second try was right, we are less sure it was the English, and the product treats it as possibly both.</p>
         <p><b>The retry is clean.</b> She sees the same question again with Chinese support only. No hint, no extra time, no narrowing of the options. We record how long the first attempt took.</p>
         <p><b>The feedback is short and it is hers.</b> It names the pattern in Chinese and quotes her own sentence back to her. It never returns a rewrite longer than one clause, and it never supplies the answer before she has attempted it.</p>
-        <p class="zh">她做错时，我们会判断是「语言」还是「概念」的问题。只有概念问题才算作她没掌握学科内容。重做时只保留中文提示，不给额外线索，也不延长时间。</p>
+        <p class="zh">她做错时，我们会判断是「语言」还是「概念」的问题。只有概念问题才算作她没掌握学科内容。重做时只给中文释义，不给任何提示，也不延长时间。</p>
       </div>
       <div class="rail">
         <div class="fig"><span class="n">2</span><span class="l">causes we separate: the language or the idea</span></div>
@@ -493,7 +493,7 @@
     </div>
     <div class="row">
       <div class="prose">
-        <p>This section exists because you would find these out anyway, and we would rather you found them here. Every item is open at the date on this document.</p>
+        <p>This section exists because you would find these out anyway, and we would rather you found them here. Every item is open at the date on this document, except the last, which is marked resolved.</p>
         <div class="ledger">
           <div class="item">
             <span class="status">Unverified</span>
@@ -501,7 +501,7 @@
           </div>
           <div class="item">
             <span class="status">Unverified</span>
-            <span class="what"><b>The language-or-idea diagnosis has never been checked against a teacher.</b> Our own gate requires it to agree with a human marker on at least 14 of 20 items before we build on it. That comparison has not been run. This is the single most important unverified claim in this document.</span>
+            <span class="what"><b>The language-or-idea diagnosis has never been checked against a teacher.</b> Our own plan said it must agree with a teacher's judgement on at least 14 of 20 items before we built on it. The product already uses it, in the tutor and in the teacher's view, and that comparison has still not been run. This is the single most important unverified claim in this document. Section 8 describes how it will be run, including two extra kinds of retry, so we can see whether the Chinese helped or the student simply did better on a second look.</span>
           </div>
           <div class="item">
             <span class="status">Unverified</span>
@@ -518,7 +518,7 @@
         </div>
       </div>
       <div class="rail">
-        <div class="fig"><span class="n">14 / 20</span><span class="l">agreement with a human marker our own gate requires, not yet run</span></div>
+        <div class="fig"><span class="n">14 / 20</span><span class="l">items out of 20 that must match a teacher's judgement, counted on the Chinese retries only. Not yet run</span></div>
         <div class="fig"><span class="n">0</span><span class="l">content files reviewed by a qualified teacher</span></div>
       </div>
     </div>
@@ -527,6 +527,48 @@
   <section>
     <div class="shead">
       <span class="num">08</span>
+      <h2 class="title">How we will check the diagnosis</h2>
+      <span class="zh-title">我们怎样检验这个判断</span>
+    </div>
+    <div class="row">
+      <div class="prose">
+        <p>Section 4 rests on one inference: if she gets the question right once she is given the Chinese meanings of its hard words, the English was the problem. A teacher will see the weak point at once. Students often get a question right the second time simply because they have seen it before, with no help at all. If we only ever retried with Chinese, we would be giving the Chinese the credit for that.</p>
+        <p><b>So the check uses three kinds of retry, each on different items.</b> In the product the retry always offers Chinese, as section 4 says. The other two kinds are used only in this check, so that the Chinese has something to be compared with.</p>
+        <ul class="plain">
+          <li>
+            <span class="k">Chinese meanings<small>中文释义</small></span>
+            <span class="v">Chinese meanings for four or five hard English words in the question, chosen before she answers and printed beside it. In the product she taps a word to see its meaning; on paper we show them directly. <b>24 items.</b></span>
+          </li>
+          <li>
+            <span class="k">No help<small>什么都不给</small></span>
+            <span class="v">The same question again, with nothing added. This shows how much a second look does on its own. <b>12 items.</b></span>
+          </li>
+          <li>
+            <span class="k">English meanings<small>英文释义</small></span>
+            <span class="v">The same words, defined in simple English. This shows whether the help has to be in Chinese. <b>12 items.</b></span>
+          </li>
+        </ul>
+        <p><b>Why test English meanings.</b> The research does not settle which language of help works. A review of help given to English learners during tests (Kieffer, Rivera and Francis, 2012: twenty studies, over 9,400 English learners) found small but reliable gains from a few kinds of help, including an English glossary, and no reliable gain on average from help in the student's first language, though those results varied widely. The authors thought the most important factor may be the language the subject was taught in. A later review of 26 studies (Rios, Ihlenfeldt and Chavez, 2020) found no single kind of help with a reliable effect. All of these studies were of students in the United States. Most of ours read Chinese, which may favour Chinese help. They learn the subject in English, which, on that reasoning, may not. So we test it.</p>
+        <p><b>We do not choose which retry an item gets.</b> A shuffled list, fixed and dated before any student answers, decides it: the seventh wrong answer gets the retry on line seven. If we chose, we would give the Chinese retry to the answers that already look like vocabulary problems, without meaning to, and the result would flatter us.</p>
+        <p><b>The pass mark.</b> It is 70 percent agreement with the teacher on at least 20 items: 14 of 20, or 17 of 24 if all 24 count. It is counted only on the items that got Chinese meanings. Items the teacher marks "both", and items where the first answer turns out to have been right, are left out by rule, not by choice. We collect 24 so that at least 20 remain.</p>
+        <p><b>Two kinds of mistake, reported separately.</b> Calling a failure <code>language</code> when the teacher says it was the idea is the worse one: the question still comes back to her, as every failure does, but the idea behind it is not marked as weak, so the gap in her understanding can stay hidden. The reverse records her as weaker in the subject than she is, and the words that stopped her get no extra help. We treat that as the smaller mistake because the idea comes back to her, so she can show she knows it. Our pass mark is still one combined figure, so we print the two kinds beside it, and a pass with many of the worse kind would still be a problem to fix.</p>
+        <p><b>What a check this size can and cannot show.</b> It can show that the diagnosis is wrong. It cannot prove that it is right. The comparison is small too: twelve items each can show a large difference from the Chinese, not a small one, and the most likely result is that we cannot tell them apart. If so, we will say "cannot tell", not "no difference". The comparison does not decide the pass mark, but if the items with no help do about as well as the Chinese ones, we will say the check does not support the central claim, even if the pass mark is met. If it passes, we will say it survived a fair attempt to break it, not that it has been validated.</p>
+        <p><b>A weakness we have not solved.</b> The same teacher decides whether each second answer was right, and our rule turns that one decision into "language" or "idea". She then gives her own view of the cause, having already seen the second answer, so her view is not fully separate from ours, and that may make agreement easier to reach. This is one of the things we would most like your view on.</p>
+        <p><b>Two parts of this check already came from a teacher.</b> An English teacher who read an earlier design of this check told us that a wrong answer on its own often does not show the cause, and that both problems can be present at once. So we now ask the student, in Chinese, how she was thinking, after the second try and never before it, because asking first would work as a hint. And when the teacher marking an item answers "both", she now says which she means: she could see both problems in the answer, or she could not tell them apart. Neither is counted towards the pass mark, but we count how often each happens, because if both problems together turn out to be common, the product has to change.</p>
+        <p class="zh">第 4 节的判断依据是：学生答错后，看着中文释义把同一道题再做一次；做对了，就判为「语言」问题，仍然做错，就判为「概念」问题。这个推断有一个明显的弱点：学生第二次做同一道题，即使什么帮助都没有，也常常会做对。如果只用中文重做，这部分进步就会被算成中文的功劳。所以这项检验（目前尚未进行）用三种重做方式，每道题只用其中一种：给中文释义（24 题，即产品的做法）；什么都不给（12 题，看「再看一遍」本身有多大作用）；给英文释义（12 题，看是否一定要用中文。已有研究对此没有定论，而且我们的学生是用英文学习学科的，按这些研究的推理，这一点可能对中文不利）。每道题用哪一种，由一份事先打乱并存档的名单决定，而不是我们看了答案再挑。及格线是与教师判断七成一致（20 题中 14 题，或 24 题中 17 题），只计算给了中文释义的题。与教师的判断相比，系统可能在两个方向上判错，我们分别报告：教师认为是「概念」问题、系统却判为「语言」问题，这种错更严重，因为题目虽然还会回来，但她在学科上的缺口不会被标记出来；反过来的错，会让她在学科上被记得比实际更弱。这个规模的检验能够证明判断是错的，但不能证明它是对的；三种重做方式之间的比较，最可能的结果是看不出差别，届时我们会如实说明。还有一个我们尚未解决的问题：判断第二次作答是否正确的，和判断错因的，是同一位教师，因此她的判断与系统的判断并不完全独立。</p>
+      </div>
+      <div class="rail">
+        <div class="fig"><span class="n">3</span><span class="l">kinds of retry, one per item</span></div>
+        <div class="fig"><span class="n">24 · 12 · 12</span><span class="l">items with Chinese, no help, and English</span></div>
+        <div class="fig"><span class="n">0</span><span class="l">retries chosen by us after seeing the answer</span></div>
+        <div class="fig"><span class="n">2</span><span class="l">kinds of mistake, reported separately</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="shead">
+      <span class="num">09</span>
       <h2 class="title">Her data, and who can see it</h2>
       <span class="zh-title">数据与可见范围</span>
     </div>
@@ -549,14 +591,15 @@
 
   <div class="ask">
     <h2>One thing we would ask of you</h2>
-    <p>Section 7 names our most important gap: the language-or-idea diagnosis has never been compared against a real teacher. Our own rule says it must agree with a human marker on at least 14 of 20 items before we build further on it.</p>
-    <p><b>If one of your teachers would mark twenty items for us, that gate closes.</b> It is roughly an hour of work, it needs no technical knowledge, and it would make the central claim in this document a measured one rather than a stated one. We would publish the result either way, including if we fail it.</p>
-    <p class="zh">第 7 节里最重要的一项：我们的「语言还是概念」判断，还没有和真人教师比对过。如果贵机构有一位教师愿意批改二十道题（约一小时，不需要任何技术背景），这一项就能验证。无论结果好坏，我们都会如实公布。</p>
+    <p>Section 7 names our most important gap: the language-or-idea diagnosis has never been compared against a real teacher. Our own rule says it must agree with a teacher's judgement on at least 14 of 20 items before we build further on it.</p>
+    <p><b>If one of your teachers would mark the items for us, that check can be run.</b> Section 8 explains the design. She would need to know the subject and read Chinese. For each item she decides whether the student's second answer was right in the subject, whether the cause was the English, the idea, or both, and which words stopped the student, after hearing the student explain her thinking in Chinese. There are forty-eight items. We estimate about two and a half hours, but nobody has timed it yet. It needs no technical knowledge. We need the school's written permission before any student takes part, and a second teacher to mark at least five of the items separately.</p>
+    <p>It would turn the central claim in this document from a stated one into a tested one. We would publish the result either way, including if we fail it. <b>And if you think the check in section 8 is unfair, in either direction, we would rather hear it before we run it than after.</b></p>
+    <p class="zh">第 7 节里最重要的一项：我们的「语言还是概念」判断，还没有和真人教师比对过。如果贵机构有一位教师愿意参与，这项检验就能进行，做法见第 8 节。这位教师需要懂该学科，并能读中文：对 48 道题逐题判断学生第二次作答在学科上是否正确、错因是语言问题、概念问题还是两者都有，以及是哪些词卡住了学生；判断前会先听学生用中文说明自己的思路。我们预估约需两个半小时，但还没有实际计时，不需要任何技术背景。学生参与前需要学校的书面同意，另外需要第二位教师独立判断其中至少 5 道题。无论结果好坏，我们都会如实公布。如果您认为第 8 节的检验方法不公平，无论偏向哪一方，我们都希望在开始之前听到。</p>
   </div>
 
   <footer>
     Ramp · Bilingual study platform for Chinese-native students learning subjects in English.<br>
-    This document describes the product as built on 11 September 2026, with the placement section updated on 17 September 2026 when the test's ceiling moved to C1. Figures are read from the running system, not estimated.<br>
+    This document describes the product as built on 11 September 2026, with the placement section updated on 17 September 2026 when the test's ceiling moved to C1, and section 8 added the same day. Figures are read from the running system, not estimated, except in section 8, which describes a check not yet run, and the marking time in the last box, which is our estimate.<br>
     Chinese text machine-written, pending review by a Chinese-native teacher.
   </footer>
 
