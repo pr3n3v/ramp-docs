@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<style>:root{color-scheme:light dark}body{margin:0}</style>
+</head>
+<body>
+<title>How We Built the Test</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Source+Sans+3:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;500&family=Noto+Sans+SC:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --paper:#faf8f5; --raised:#fff; --ink:#1c1917; --muted:#57534e; --faint:#8a8279;
+    --rule:#e4dfd7; --soft:#f0ece5;
+    --accent:#1f5f5b; --accent-wash:#e4efed;
+    --machine:#9a6212; --machine-wash:#f9f0e0;
+    --human:#2d6a4a; --human-wash:#e6f0ea;
+    --serif:"Source Serif 4","Noto Serif SC",Georgia,serif;
+    --sans:"Source Sans 3","Noto Sans SC",ui-sans-serif,system-ui,sans-serif;
+    --zserif:"Noto Serif SC","Source Serif 4",serif;
+    --zsans:"Noto Sans SC","Source Sans 3","PingFang SC",sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --paper:#141310; --raised:#1c1a17; --ink:#eceae5; --muted:#a8a29a; --faint:#857f76;
+    --rule:#2d2a25; --soft:#232019; --accent:#6fb5ae; --accent-wash:#16292a;
+    --machine:#d9a55c; --machine-wash:#2a2115; --human:#6cb491; --human-wash:#16281f;
+  }}
+  :root[data-theme="dark"]{
+    --paper:#141310; --raised:#1c1a17; --ink:#eceae5; --muted:#a8a29a; --faint:#857f76;
+    --rule:#2d2a25; --soft:#232019; --accent:#6fb5ae; --accent-wash:#16292a;
+    --machine:#d9a55c; --machine-wash:#2a2115; --human:#6cb491; --human-wash:#16281f;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.7;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:780px;margin:0 auto;padding:0 22px 88px}
+
+  .switch{position:sticky;top:0;z-index:5;background:var(--paper);padding:14px 0 12px;border-bottom:1px solid var(--rule);display:flex;gap:8px;align-items:center}
+  .switch button{font-family:var(--sans);font-size:13px;font-weight:500;padding:6px 15px;border-radius:999px;border:1px solid var(--rule);background:var(--raised);color:var(--muted);cursor:pointer}
+  .switch button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+
+  [data-doc]{display:none}
+  [data-doc].on{display:block}
+  .zh{font-family:var(--zsans);line-height:1.95;font-weight:300}
+  .zh h1,.zh h2,.zh h3,.zh .stand,.zh .pull{font-family:var(--zserif)}
+
+  header.top{padding:44px 0 26px;border-bottom:2px solid var(--ink)}
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin:0 0 14px}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(30px,5.8vw,44px);line-height:1.08;letter-spacing:-.015em;margin:0 0 16px;text-wrap:balance}
+  .zh h1{line-height:1.3;letter-spacing:.01em;font-weight:500}
+  .stand{font-family:var(--serif);font-size:clamp(17px,2.4vw,19px);line-height:1.6;color:var(--muted);margin:0;max-width:56ch}
+  .zh .stand{line-height:1.9}
+
+  section{padding:36px 0;border-bottom:1px solid var(--rule)}
+  section:last-of-type{border-bottom:0}
+  h2{font-family:var(--serif);font-weight:600;font-size:clamp(21px,3.4vw,27px);line-height:1.22;margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance}
+  .zh h2{line-height:1.45;font-weight:500;letter-spacing:.01em}
+  .sn{font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.1em;display:block;margin-bottom:9px}
+  h3{font-weight:600;font-size:15px;margin:26px 0 8px}
+  p{margin:0 0 14px}
+  strong{font-weight:600}
+  .lede{color:var(--muted);max-width:60ch}
+
+  .pull{border-left:3px solid var(--accent);padding:4px 0 4px 18px;margin:20px 0;font-family:var(--serif);font-size:18px;line-height:1.6;max-width:54ch}
+  .zh .pull{line-height:1.9;font-size:17px}
+
+  .tbl{overflow-x:auto;margin:20px 0}
+  table{border-collapse:collapse;width:100%;min-width:400px;font-size:14.5px}
+  th,td{text-align:left;padding:10px 14px 10px 0;border-bottom:1px solid var(--soft);vertical-align:top;line-height:1.6}
+  thead th{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);font-weight:500;border-bottom:1px solid var(--rule)}
+  td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+  .chip{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.07em;text-transform:uppercase;padding:2px 7px;border-radius:2px;font-weight:500}
+  .c-machine{background:var(--machine-wash);color:var(--machine)}
+  .c-human{background:var(--human-wash);color:var(--human)}
+
+  .strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:3px;overflow:hidden;margin:22px 0}
+  .strip>div{background:var(--raised);padding:15px 15px 13px}
+  .strip .f{font-family:var(--mono);font-weight:500;font-size:21px;display:block;line-height:1.1}
+  .strip .c{font-size:12.5px;color:var(--muted);margin-top:6px;display:block;line-height:1.4}
+  .strip .m .f{color:var(--machine)} .strip .h .f{color:var(--human)}
+
+  ul.plain{margin:0 0 14px;padding-left:20px}
+  ul.plain li{margin-bottom:8px}
+  ul.plain li::marker{color:var(--faint)}
+
+  .ask{background:var(--accent-wash);border-radius:3px;padding:16px 18px;margin:18px 0;font-size:15.5px;line-height:1.75}
+  .zh .ask{line-height:1.95}
+
+  footer{border-top:2px solid var(--ink);margin-top:8px;padding-top:20px;font-size:13.5px;color:var(--faint);line-height:1.75}
+  @media (max-width:560px){.wrap{padding:0 16px 64px}}
+</style>
+
+<div class="wrap">
+  <div class="switch">
+    <button type="button" id="b-en" aria-pressed="true">English</button>
+    <button type="button" id="b-zh" aria-pressed="false">中文</button>
+  </div>
+
+  <!-- ============================= ENGLISH ============================= -->
+  <div data-doc="en" class="on">
+    <header class="top">
+      <p class="kicker">Ramp &middot; for teachers &middot; 17 September 2026</p>
+      <h1>How we built the test, and where you can change it</h1>
+      <p class="stand">Most of the content in this product was written by a machine and has not been read by a teacher. This document says exactly which parts, how each was made, and what happens when you tell us something is wrong.</p>
+    </header>
+
+    <section>
+      <span class="sn">〇</span>
+      <h2>The short version</h2>
+      <div class="strip">
+        <div class="m"><span class="f">24</span><span class="c">content files a machine wrote and no person has read</span></div>
+        <div class="h"><span class="f">4</span><span class="c">files a person has actually read</span></div>
+        <div><span class="f">100</span><span class="c">placement items, across two matched forms</span></div>
+        <div><span class="f">12</span><span class="c">English units, A1 to B1</span></div>
+      </div>
+      <p>We are not going to describe this as "AI assisted" and leave it there. A machine drafted the test items, the reading passages and the study units. A person reviewed some of it and then, on 17 September, we changed the content and <strong>spent</strong> six of those reviews, which is why the read number is as low as it is.</p>
+      <p class="pull">Every file in this product records who approved it and whether that approver was a human. Nothing can claim a review it does not have. That is the mechanism this document is asking you to use.</p>
+    </section>
+
+    <section>
+      <span class="sn">一</span>
+      <h2>The placement test</h2>
+      <p class="lede">One sitting, about twenty five minutes, five parts. It exists to find where a student is, not to give her a grade.</p>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>Part</th><th class="n">Items</th><th>What it asks for</th></tr></thead>
+          <tbody>
+            <tr><td>Vocabulary</td><td class="n">20</td><td>A word missing from a sentence she has just read. The sentence is the anchor: we never ask for a word with no context.</td></tr>
+            <tr><td>Timed reading</td><td class="n">15</td><td>A passage against the clock, then questions. This measures speed as well as comprehension.</td></tr>
+            <tr><td>Written</td><td class="n">5</td><td>A short answer in her own words.</td></tr>
+            <tr><td>Read aloud</td><td class="n">5</td><td>A recording, scored for pronunciation.</td></tr>
+            <tr><td>Spoken explanation</td><td class="n">5</td><td>She explains an idea in her own words.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>There are <strong>two forms</strong>, A and B, matched level for level and sharing no answers. A is day one. B is the retest around week ten, so improvement is measured against a different paper rather than a remembered one.</p>
+
+      <h3>It adapts, and here is exactly how</h3>
+      <p>The vocabulary part walks a ladder. It starts at <strong>A2</strong> and serves four items at a level. Three or four correct moves her up; zero or one moves her down; exactly two stops her there. It walks at most four levels.</p>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>What happens</th><th class="n">Items she sees</th></tr></thead>
+          <tbody>
+            <tr><td>Two right at A2, stops there</td><td class="n">4</td></tr>
+            <tr><td>Fails A2, drops to A1, which is the floor</td><td class="n">8</td></tr>
+            <tr><td>Passes A2, fails B1</td><td class="n">8</td></tr>
+            <tr><td>Passes A2 and B1, stops at B2</td><td class="n">12</td></tr>
+            <tr><td>Passes three levels running, reaches C1</td><td class="n">16</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>A beginner sees eight items, not sixteen.</strong> She fails A2, steps down to A1, and A1 is the bottom of the ladder, so it ends her walk. The longest test belongs to the strongest student, which is the way round we wanted it.</p>
+
+      <h3>What it deliberately does not do</h3>
+      <ul class="plain">
+        <li><strong>It gives no IELTS or exam-board score.</strong> We derive a CEFR band from our own evidence and say so. Putting a recognised exam's name on a number we computed ourselves would be a claim we cannot back.</li>
+        <li><strong>It never asks her opinion.</strong> "What do you think about..." measures confidence, not English, and a quiet student loses twice. Every question points at something she has just been shown.</li>
+        <li><strong>It does not rank her against classmates.</strong> No leaderboard exists anywhere in the product.</li>
+      </ul>
+    </section>
+
+    <section>
+      <span class="sn">二</span>
+      <h2>The study units</h2>
+      <p class="lede">Twelve English units, four each at A1, A2 and B1. Each one teaches exactly one grammatical pattern.</p>
+      <p>We chose <strong>six patterns</strong> and closed the list. They are the things Chinese does not mark on the word, which is why they persist long after a student is otherwise fluent:</p>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>Pattern</th><th>The error it addresses</th></tr></thead>
+          <tbody>
+            <tr><td>plural</td><td>three book</td></tr>
+            <tr><td>third person s</td><td>she go</td></tr>
+            <tr><td>article</td><td>I saw dog</td></tr>
+            <tr><td>copula</td><td>the room big</td></tr>
+            <tr><td>tense and verb form</td><td>yesterday I go</td></tr>
+            <tr><td>noun against verb</td><td>a advice, to success</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>A seventh, <strong>he against she</strong>, is detected and counted but shown to nobody. 他 and 她 are the same sound in Mandarin, so it is the most characteristic error this student makes. It stays silent until we have measured how often we accuse a student wrongly, because a false accusation costs more with a nervous learner than a missed error does.</p>
+      <p><strong>Prepositions and question word order were considered and refused.</strong> <em>in / on / at</em> is too fuzzy to accuse anyone of.</p>
+
+      <h3>What a unit contains</h3>
+      <ul class="plain">
+        <li>A short reading, 60 to 120 words, in a real situation.</li>
+        <li>A note <strong>in Chinese</strong> contrasting the English structure with how Chinese does the same job. This is the part only a native reader can judge.</li>
+        <li>Target words, each with a frequency tier computed from a dictionary rather than chosen by feel.</li>
+        <li>An output task, and retrieval items that come back on a schedule.</li>
+      </ul>
+
+      <h3>They were written for schoolchildren and are not any more</h3>
+      <p>Until 17 September every unit read as a school addressing a pupil: "Dear Class 2", "read this notice on Monday", "hand in your project". Our users are not only teenagers at international schools. Some are adults in their twenties, from any field.</p>
+      <p>So the situations changed: a returns notice in a shop, a friend describing a flat, a jobs list on a shared kitchen door, a race in the park last Saturday. <strong>Age neutral rather than adult</strong>, deliberately, because a fourteen year old is still a real user and a unit written only for adults fails her instead.</p>
+    </section>
+
+    <section>
+      <span class="sn">三</span>
+      <h2>What a machine wrote, and what a person checked</h2>
+      <p class="lede">Every content file carries a review block naming who approved it. The distinction is enforced in code: only a person can mark a file as human reviewed, and no automated process is permitted to.</p>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>Content</th><th>Status</th><th>What a teacher should look at</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Placement bank A and B</strong>, 100 items</td><td><span class="chip c-machine">machine</span></td><td>Does each item test the level it claims? Form B is the retest, so it must be the same difficulty as A or the retest measures the paper.</td></tr>
+            <tr><td><strong>10 reading passages</strong></td><td><span class="chip c-machine">machine</span></td><td>Readability against the level each one claims.</td></tr>
+            <tr><td><strong>12 English units</strong></td><td><span class="chip c-machine">machine</span></td><td>Does the Chinese note read naturally, and is the level honest?</td></tr>
+            <tr><td><strong>6 science units</strong></td><td><span class="chip c-machine">machine</span></td><td>The Chinese explanations and the English level.</td></tr>
+            <tr><td>Exam English term lists</td><td><span class="chip c-machine">machine</span></td><td>Taken from the public Cambridge specifications and never checked.</td></tr>
+            <tr><td>Chinese L1 error data</td><td><span class="chip c-human">human</span></td><td>Read already.</td></tr>
+            <tr><td>IGCSE syllabus files</td><td><span class="chip c-human">human</span></td><td>Read already.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ask"><strong>The highest value hour you could give us</strong> is the placement banks. Every student's starting level comes out of those 100 items, and nobody qualified has read one of them.</div>
+    </section>
+
+    <section>
+      <span class="sn">四</span>
+      <h2>How to change something</h2>
+      <p class="lede">This is the part that makes the rest of the document worth reading.</p>
+      <ul class="plain">
+        <li><strong>Point at the item.</strong> Every item and unit has an id, printed on screen: <span class="mono">EN-A2-03</span>, <span class="mono">bank-a</span> item 14. Name it and we can find it in seconds.</li>
+        <li><strong>Say what is wrong in your own words.</strong> "A B1 student would not know this word" is more useful than a suggested rewrite, because it tells us the rule rather than the instance.</li>
+        <li><strong>Tell us when the level is wrong</strong>, not only when the English is. A correct item at the wrong level puts students in the wrong place, which is worse than an awkward sentence.</li>
+        <li><strong>If you read a file and approve it,</strong> we record your name against it and it leaves the unread list. That record is permanent and auditable, and it is how this product stops being something a machine wrote.</li>
+      </ul>
+      <p>We will change content on a teacher's word without argument. What we will not do is quietly mark it as reviewed afterwards.</p>
+    </section>
+
+    <section>
+      <span class="sn">五</span>
+      <h2>Three rules we will not bend, including for you</h2>
+      <p class="lede">Worth knowing before you suggest something we then refuse, which would waste your time rather than ours.</p>
+      <ul class="plain">
+        <li><strong>The tutor never answers first.</strong> It will not give a final answer until the student has produced an attempt, however stuck she is.</li>
+        <li><strong>Corrections cite her own sentence and stay short.</strong> We name the pattern in Chinese and quote her words back. We never return a rewrite longer than one clause: a corrected paragraph is our writing, not hers.</li>
+        <li><strong>Nothing compares one student to another.</strong> No recording, score or transcript of one student is ever shown to another, and there are no leaderboards.</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>Figures read from the running system on 17 September 2026. If any number here disagrees with what you see on screen, this document is wrong and we want to know.</p>
+    </footer>
+  </div>
+
+  <!-- ============================== 中文 ============================== -->
+  <div data-doc="zh" class="zh">
+    <header class="top">
+      <p class="kicker">Ramp &middot; 致老师 &middot; 2026年9月17日</p>
+      <h1>这套题和这些课是怎么做出来的，以及您在哪里可以改它</h1>
+      <p class="stand">这个产品里的大部分内容是机器写的，而且还没有老师读过。这份文件写清楚具体是哪些部分、每一部分怎么做出来的，以及您告诉我们哪里不对之后会发生什么。</p>
+    </header>
+
+    <section>
+      <span class="sn">〇</span>
+      <h2>先说结论</h2>
+      <div class="strip">
+        <div class="m"><span class="f">24</span><span class="c">份机器写的内容，没有人读过</span></div>
+        <div class="h"><span class="f">4</span><span class="c">份真正有人读过的</span></div>
+        <div><span class="f">100</span><span class="c">道分级题，分成两套对应的卷子</span></div>
+        <div><span class="f">12</span><span class="c">个英语单元，A1 到 B1</span></div>
+      </div>
+      <p>我们不打算只说一句"用了 AI 辅助"就带过去。分级题、阅读材料和学习单元的初稿都是机器写的。有一部分人读过，但 9 月 17 日我们改了内容，那几份审阅就<strong>作废了</strong>，所以"读过"的数字才这么低。</p>
+      <p class="pull">这个产品里的每一份内容文件都记录着是谁批准的、批准的人是不是真人。没有任何一份文件可以声称自己有一个它其实没有的审阅记录。这份文件想请您用的，就是这个机制。</p>
+    </section>
+
+    <section>
+      <span class="sn">一</span>
+      <h2>分级测试</h2>
+      <p class="lede">一次做完，大约二十五分钟，五个部分。它的目的是找到学生现在在哪里，不是给她一个分数。</p>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>部分</th><th class="n">题量</th><th>考什么</th></tr></thead>
+          <tbody>
+            <tr><td>词汇</td><td class="n">20</td><td>在她刚读过的句子里填一个词。句子就是依据：我们从不脱离上下文问一个词。</td></tr>
+            <tr><td>限时阅读</td><td class="n">15</td><td>计时读一段，然后回答问题。这一部分量的是速度，也是理解。</td></tr>
+            <tr><td>写</td><td class="n">5</td><td>用她自己的话写一小段。</td></tr>
+            <tr><td>朗读</td><td class="n">5</td><td>录一段音，给发音打分。</td></tr>
+            <tr><td>口头复述</td><td class="n">5</td><td>用她自己的话把一个意思讲一遍。</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>一共<strong>两套卷子</strong>，A 和 B，每个等级一一对应，而且不共用答案。A 是第一天做的，B 是第十周左右的复测，这样进步是跟另一张卷子比出来的，不是跟记住的那张。</p>
+
+      <h3>它会自动调整难度，具体是这样</h3>
+      <p>词汇部分走一个梯子。从 <strong>A2</strong> 开始，每个等级出四道题。对三道或四道就往上走一级；对零道或一道就往下走一级；正好对两道就停在这里。最多走四级。</p>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>什么情况</th><th class="n">她会做到几道</th></tr></thead>
+          <tbody>
+            <tr><td>A2 对两道，就停在这里</td><td class="n">4</td></tr>
+            <tr><td>A2 没过，退到 A1，而 A1 是最低一级</td><td class="n">8</td></tr>
+            <tr><td>过了 A2，B1 没过</td><td class="n">8</td></tr>
+            <tr><td>过了 A2 和 B1，停在 B2</td><td class="n">12</td></tr>
+            <tr><td>连过三级，走到 C1</td><td class="n">16</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>基础弱的学生只做八道，不是十六道。</strong>她 A2 没过，退到 A1，而 A1 已经是梯子最底下，走不下去了，题也就到此为止。做得最长的是水平最高的那个学生，这正是我们想要的方向。</p>
+
+      <h3>它刻意不做的几件事</h3>
+      <ul class="plain">
+        <li><strong>不给雅思分数，也不给任何考试局的分数。</strong>我们根据自己的证据推出一个 CEFR 等级，并且说明它是我们推的。把一个我们自己算出来的数字挂上别人考试的名字，是一个我们撑不起的说法。</li>
+        <li><strong>从不问她的看法。</strong>"你觉得……怎么样"量的是胆子，不是英语，内向的学生会吃两次亏。每一道题都指向她刚刚看过的东西。</li>
+        <li><strong>不跟同学排名。</strong>这个产品里没有任何排行榜。</li>
+      </ul>
+    </section>
+
+    <section>
+      <span class="sn">二</span>
+      <h2>学习单元</h2>
+      <p class="lede">十二个英语单元，A1、A2、B1 各四个。每一个只教一个语法点。</p>
+      <p>我们选了<strong>六个语法点</strong>，并且把这个名单封死了。它们都是中文不在词上标出来的东西，所以学生英语已经挺流利了，这些错还在：</p>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>语法点</th><th>对应的错误</th></tr></thead>
+          <tbody>
+            <tr><td>复数</td><td>three book</td></tr>
+            <tr><td>第三人称单数加 s</td><td>she go</td></tr>
+            <tr><td>冠词</td><td>I saw dog</td></tr>
+            <tr><td>系动词 is / are</td><td>the room big</td></tr>
+            <tr><td>时态和动词形式</td><td>yesterday I go</td></tr>
+            <tr><td>名词和动词分不清</td><td>a advice, to success</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>还有第七个，<strong>he 和 she</strong>，我们检测它、统计它，但不给任何人看。他和她在普通话里是同一个音，所以这是中国学生最典型的一个错。在我们量清楚"冤枉学生的比例有多高"之前，它一直不出声：对一个本来就怕错的学生来说，冤枉她一次的代价，比漏掉一个错要大。</p>
+      <p><strong>介词和疑问句语序我们考虑过，然后放弃了。</strong>in / on / at 太模糊，模糊到不该拿它去说谁错了。</p>
+
+      <h3>一个单元里有什么</h3>
+      <ul class="plain">
+        <li>一段短阅读，60 到 120 个词，放在一个真实的场景里。</li>
+        <li>一段<strong>中文</strong>说明，把英语的这个结构和中文怎么表达同一件事对照着讲。这一部分只有母语者才判断得了。</li>
+        <li>目标词，每个词的频率等级是从词典算出来的，不是凭感觉定的。</li>
+        <li>一个产出任务，以及会按时间回来找她的复习题。</li>
+      </ul>
+
+      <h3>这些课本来是写给中学生的，现在不是了</h3>
+      <p>9 月 17 日之前，每一个单元读起来都像学校在对学生讲话："致二班同学""周一请看这个通知""请把作业交上来"。但我们的用户不只是国际学校的中学生，也有二十几岁的成年人，来自各行各业。</p>
+      <p>所以场景换了：商店的退货须知、朋友介绍自己的新房子、合租厨房门上的分工表、上周六公园里的一场跑步。<strong>是"不分年龄"，不是"改成成人向"</strong>，这是有意的：十四岁的学生也是真实用户，只写给成年人的课，对她同样不合适。</p>
+    </section>
+
+    <section>
+      <span class="sn">三</span>
+      <h2>哪些是机器写的，哪些真的有人看过</h2>
+      <p class="lede">每一份内容文件都带一个审阅记录，写明是谁批准的。这个区分是写在代码里强制执行的：只有真人可以把一份文件标成"人已读"，任何自动流程都不允许这么做。</p>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>内容</th><th>状态</th><th>老师该看什么</th></tr></thead>
+          <tbody>
+            <tr><td><strong>分级题库 A 卷和 B 卷</strong>，共 100 道</td><td><span class="chip c-machine">机器</span></td><td>每道题考的真的是它标的那个等级吗？B 卷是复测卷，难度必须和 A 卷一致，否则量的是卷子不是学生。</td></tr>
+            <tr><td><strong>10 段阅读材料</strong></td><td><span class="chip c-machine">机器</span></td><td>难易程度和它标的等级对不对得上。</td></tr>
+            <tr><td><strong>12 个英语单元</strong></td><td><span class="chip c-machine">机器</span></td><td>中文说明读起来自然吗，等级标得老实吗。</td></tr>
+            <tr><td><strong>6 个科学单元</strong></td><td><span class="chip c-machine">机器</span></td><td>中文讲解，以及英语的难度。</td></tr>
+            <tr><td>考试英语术语表</td><td><span class="chip c-machine">机器</span></td><td>取自剑桥的公开考纲，从来没有人核对过。</td></tr>
+            <tr><td>中文母语错误数据</td><td><span class="chip c-human">真人</span></td><td>已经读过了。</td></tr>
+            <tr><td>IGCSE 考纲文件</td><td><span class="chip c-human">真人</span></td><td>已经读过了。</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ask"><strong>如果您只能给我们一个小时</strong>，最值得花在分级题库上。每一个学生的起点都是这 100 道题定出来的，而到今天为止没有一个够格的人读过其中任何一道。</div>
+    </section>
+
+    <section>
+      <span class="sn">四</span>
+      <h2>怎么改</h2>
+      <p class="lede">这一节才是这份文件值得读的原因。</p>
+      <ul class="plain">
+        <li><strong>指出是哪一道。</strong>每一道题、每一个单元都有编号，屏幕上就能看到：<span class="mono">EN-A2-03</span>、<span class="mono">bank-a</span> 第 14 题。您报编号，我们几秒钟就能找到。</li>
+        <li><strong>用您自己的话说哪里不对。</strong>"B1 的学生不会认识这个词"比直接给一句改好的话更有用，因为前者告诉我们的是规律，后者只是一个例子。</li>
+        <li><strong>等级标错了也请告诉我们</strong>，不只是英文本身有问题的时候。一道英文没毛病但等级标错的题，会把学生放到错误的位置上，这比一句别扭的英文更严重。</li>
+        <li><strong>如果您读完某一份并且认可它</strong>，我们会把您的名字记在那份文件上，它就从"没人读过"的名单里出去了。这个记录是永久的、可查的，也是这个产品摆脱"机器写的"这个身份的唯一办法。</li>
+      </ul>
+      <p>老师说内容要改，我们就改，不争辩。我们唯一不会做的，是事后悄悄把它标成"已审阅"。</p>
+    </section>
+
+    <section>
+      <span class="sn">五</span>
+      <h2>三条我们不会让步的规则，对您也一样</h2>
+      <p class="lede">先讲清楚，免得您提了建议我们却拒绝，那是浪费您的时间，不是我们的。</p>
+      <ul class="plain">
+        <li><strong>辅导时绝不先给答案。</strong>学生没有先自己写出一次尝试之前，系统不会给最终答案，不管她卡得多死。</li>
+        <li><strong>纠错要引用她自己的句子，而且要短。</strong>我们用中文点出是哪一类错误，并把她自己的原话引回来。改写绝不超过一个从句：改好的一整段是我们的文字，不是她的。</li>
+        <li><strong>任何地方都不拿学生互相比较。</strong>一个学生的录音、分数、原话，绝不会给另一个学生看，也没有任何排行榜。</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>文中数字于 2026 年 9 月 17 日从运行中的系统读出。如果这里的任何一个数字和您在屏幕上看到的不一致，那是这份文件错了，请告诉我们。</p>
+    </footer>
+  </div>
+</div>
+
+<script>
+(function(){
+  var KEY='ramp-howbuilt-lang';
+  var docs={en:document.querySelector('[data-doc="en"]'),zh:document.querySelector('[data-doc="zh"]')};
+  var btns={en:document.getElementById('b-en'),zh:document.getElementById('b-zh')};
+  function show(l){
+    var cur=(l==='zh')?'zh':'en';
+    docs.en.classList.toggle('on',cur==='en');
+    docs.zh.classList.toggle('on',cur==='zh');
+    btns.en.setAttribute('aria-pressed',String(cur==='en'));
+    btns.zh.setAttribute('aria-pressed',String(cur==='zh'));
+    document.documentElement.lang = cur==='zh' ? 'zh-CN' : 'en';
+    try{localStorage.setItem(KEY,cur);}catch(e){}
+  }
+  var start=null;
+  try{start=localStorage.getItem(KEY);}catch(e){}
+  if(!start){var n=(navigator.language||'').toLowerCase();start=n.indexOf('zh')===0?'zh':'en';}
+  show(start);
+  btns.en.addEventListener('click',function(){show('en');});
+  btns.zh.addEventListener('click',function(){show('zh');});
+})();
+</script>
+
+</body>
+</html>

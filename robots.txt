@@ -1,0 +1,5 @@
+# These documents are shared by link with named institutions.
+# They are public so the link works without a login, and excluded from
+# search so they are not found by anyone we did not send them to.
+User-agent: *
+Disallow: /

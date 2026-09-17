@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<style>:root{color-scheme:light dark}body{margin:0}</style>
+</head>
+<body>
+<title>How Ramp Measures</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --paper:      #FFFFFF;
+    --surface:    #EFF3F3;
+    --ink:        #16232B;
+    --ink-soft:   #52666E;
+    --rule:       #D6DEE0;
+    --accent:     #0F6A63;
+    --accent-dim: #E2EFED;
+    --warn:       #8A5A17;
+    --warn-dim:   #F6EEE1;
+    --shadowtone: #6A4E86;
+
+    --serif: 'Source Serif 4', Georgia, 'Songti SC', serif;
+    --sans:  'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    --mono:  'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:      #101A1E;
+      --surface:    #18262B;
+      --ink:        #E4EDEF;
+      --ink-soft:   #96AAB1;
+      --rule:       #2B3D44;
+      --accent:     #56B8AC;
+      --accent-dim: #14312F;
+      --warn:       #D3A05A;
+      --warn-dim:   #2C2416;
+      --shadowtone: #AC91C6;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper:      #101A1E;
+    --surface:    #18262B;
+    --ink:        #E4EDEF;
+    --ink-soft:   #96AAB1;
+    --rule:       #2B3D44;
+    --accent:     #56B8AC;
+    --accent-dim: #14312F;
+    --warn:       #D3A05A;
+    --warn-dim:   #2C2416;
+    --shadowtone: #AC91C6;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 62rem;
+    margin: 0 auto;
+    padding: 3.5rem 1.5rem 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.25rem;
+  }
+
+  /* ---------------------------------------------------------- masthead - */
+
+  .masthead { display: flex; flex-direction: column; gap: 1rem; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(2.1rem, 5vw, 3.1rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .standfirst {
+    font-family: var(--serif);
+    font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+    line-height: 1.5;
+    color: var(--ink-soft);
+    max-width: 40ch;
+    margin: 0;
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.75rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    color: var(--ink-soft);
+  }
+  .meta b { color: var(--ink); font-weight: 500; }
+
+  /* ------------------------------------------------------------ notice - */
+
+  .notice {
+    background: var(--warn-dim);
+    border-left: 3px solid var(--warn);
+    padding: 1rem 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .notice h2 {
+    font-family: var(--sans);
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--warn);
+    margin: 0;
+  }
+  .notice p { margin: 0; font-size: 0.92rem; color: var(--ink); }
+  .notice p.zh { color: var(--ink-soft); }
+
+  /* ----------------------------------------------------------- section - */
+
+  section { display: flex; flex-direction: column; gap: 1.1rem; }
+
+  .shead { display: flex; flex-direction: column; gap: 0.15rem; }
+  .shead .num {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+  h2.title {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(1.35rem, 3vw, 1.7rem);
+    line-height: 1.2;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .zh-title {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+  }
+
+  /* the document body and its measurement rail */
+  .row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 13rem;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .prose { max-width: 66ch; display: flex; flex-direction: column; gap: 0.9rem; }
+  .prose p { margin: 0; }
+  .prose p.zh { color: var(--ink-soft); font-size: 0.92rem; }
+
+  .rail { display: flex; flex-direction: column; gap: 1.15rem; }
+  .fig { display: flex; flex-direction: column; gap: 0.1rem; }
+  .fig .n {
+    font-family: var(--mono);
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .fig .l {
+    font-size: 0.76rem;
+    line-height: 1.35;
+    color: var(--ink-soft);
+  }
+
+  /* ------------------------------------------------------------- lists - */
+
+  ul.plain { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  ul.plain > li {
+    display: grid;
+    grid-template-columns: 9.5rem minmax(0, 1fr);
+    gap: 0.25rem 1.25rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  ul.plain > li:last-child { border-bottom: none; padding-bottom: 0; }
+  ul.plain .k { font-weight: 600; font-size: 0.9rem; }
+  ul.plain .k small { display: block; font-weight: 400; color: var(--ink-soft); font-size: 0.8rem; }
+  ul.plain .v { font-size: 0.94rem; color: var(--ink); }
+  ul.plain .v code { font-family: var(--mono); font-size: 0.85em; color: var(--accent); }
+
+  /* -------------------------------------------------------- claim pair - */
+
+  .pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1.25rem; }
+  .panel { padding: 1.15rem 1.25rem; display: flex; flex-direction: column; gap: 0.8rem; }
+  .panel.do { background: var(--accent-dim); }
+  .panel.dont { background: var(--surface); }
+  .panel h3 {
+    margin: 0;
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .panel.do h3 { color: var(--accent); }
+  .panel.dont h3 { color: var(--ink-soft); }
+  .panel ul { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: 0.6rem; }
+  .panel li { font-size: 0.92rem; }
+  .panel li span.zh { display: block; color: var(--ink-soft); font-size: 0.84rem; margin-top: 0.15rem; }
+
+  /* ------------------------------------------------------------ ledger - */
+
+  .ledger { display: flex; flex-direction: column; }
+  .ledger .item {
+    display: grid;
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+    gap: 0.25rem 1.25rem;
+    padding: 0.85rem 0 0.85rem 1rem;
+    border-left: 3px solid var(--warn);
+    border-bottom: 1px solid var(--rule);
+  }
+  .ledger .item:last-child { border-bottom: none; }
+  .ledger .status {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--warn);
+    padding-top: 0.2rem;
+  }
+  .ledger .what { font-size: 0.94rem; }
+  .ledger .what b { font-weight: 600; }
+
+  /* ----------------------------------------------------------- pattern - */
+
+  .patterns { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .pat {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    padding: 0.4rem 0.65rem;
+    background: var(--surface);
+    color: var(--ink);
+    border-bottom: 2px solid var(--accent);
+  }
+  .pat.silent {
+    border-bottom-color: var(--shadowtone);
+    color: var(--ink-soft);
+  }
+  .pat.silent::after {
+    content: ' · silent';
+    color: var(--shadowtone);
+  }
+
+  /* -------------------------------------------------------------- ask -- */
+
+  .ask {
+    background: var(--surface);
+    padding: 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    border-top: 3px solid var(--accent);
+  }
+  .ask h2 { font-family: var(--serif); font-size: 1.35rem; margin: 0; font-weight: 600; }
+  .ask p { margin: 0; font-size: 0.95rem; }
+  .ask p.zh { color: var(--ink-soft); font-size: 0.88rem; }
+
+  footer {
+    border-top: 1px solid var(--rule);
+    padding-top: 1.25rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 46rem) {
+    .row { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+    .rail {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 1.25rem 2rem;
+      padding-top: 0.25rem;
+      border-top: 1px solid var(--rule);
+    }
+    ul.plain > li { grid-template-columns: minmax(0, 1fr); }
+    .ledger .item { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>
+
+<div class="page">
+
+  <header class="masthead">
+    <div class="eyebrow">Ramp · For institutional review</div>
+    <h1>How Ramp Measures a Student</h1>
+    <p class="standfirst">What we assess, how often, what the numbers mean, and the list of things we have not yet proved.</p>
+    <div class="meta">
+      <span><b>Version</b> 11 September 2026</span>
+      <span><b>Status</b> Draft for review</span>
+      <span><b>Prepared for</b> Partner institutions</span>
+      <span><b>Data region</b> Singapore</span>
+    </div>
+  </header>
+
+  <div class="notice">
+    <h2>Read this first</h2>
+    <p>The Chinese in this document was written by a machine and has not yet been checked by a Chinese-native teacher. Please read the English as authoritative and tell us where the Chinese is wrong. Every claim below is either measured or listed in section 7 as unproved.</p>
+    <p class="zh">本文中的中文由机器生成，尚未经过中文母语教师审核。请以英文为准，并告诉我们中文哪里不妥。下文的每一项说法，要么已经过实测，要么已列在第 7 节的未验证清单里。</p>
+  </div>
+
+  <section>
+    <div class="shead">
+      <span class="num">01</span>
+      <h2 class="title">What we measure</h2>
+      <span class="zh-title">我们测什么</span>
+    </div>
+    <div class="row">
+      <div class="prose">
+        <p>Four things, each stored separately. We do not collapse them into a single score, because a student who reads well and speaks poorly is a different student from one who does the reverse, and one number hides that.</p>
+        <ul class="plain">
+          <li>
+            <span class="k">Vocabulary<small>词汇</small></span>
+            <span class="v">Tracked one word at a time, in three states: <code>unknown</code>, <code>recognised</code>, <code>producible</code>. Recognising a word and being able to use it are recorded as different achievements.</span>
+          </li>
+          <li>
+            <span class="k">Reading<small>阅读</small></span>
+            <span class="v">Speed and comprehension, measured on the texts she actually reads, including ones she photographs or pastes in herself.</span>
+          </li>
+          <li>
+            <span class="k">Writing<small>写作</small></span>
+            <span class="v">Her own sentences, marked twice: once for the idea, once for the English. Version history is kept so a teacher can see how a piece changed.</span>
+          </li>
+          <li>
+            <span class="k">Speaking<small>口语</small></span>
+            <span class="v">Pronunciation scored sound by sound against the standard, using Microsoft Azure Speech in the Singapore region.</span>
+          </li>
+        </ul>
+      </div>
+      <div class="rail">
+        <div class="fig"><span class="n">4</span><span class="l">skills, stored separately</span></div>
+        <div class="fig"><span class="n">3</span><span class="l">states per word, from unknown to producible</span></div>
+        <div class="fig"><span class="n">1</span><span class="l">score we never produce: a single overall number</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="shead">
+      <span class="num">02</span>
+      <h2 class="title">How we place her at the start</h2>
+      <span class="zh-title">入学分级测试</span>
+    </div>
+    <div class="row">
+      <div class="prose">
+        <p>One adaptive test, drawn from a bank of 50 items in five parts: 20 vocabulary, 15 timed reading, 5 written, 5 read aloud, 5 spoken explanation. It spans five CEFR levels, A1 to C1. She sits the part of it the test decides she needs, which is why no two students answer the same number of questions.</p>
+        <p>The test moves. Each level serves 4 items; 3 correct moves her up, fewer moves her down. Her band is the highest level she passed.</p>
+        <p><b>We report how sure we are, and we say when we are not.</b> If a level above her band was served in full and not passed, we found her ceiling and report confidence 0.8. If the test ran off the top or the bottom, we never found her ceiling, and we report 0.5 with wording that says the test did not find out rather than pretending it did.</p>
+        <p class="zh">测试会自动调整难度：每个等级出 4 题，答对 3 题升级。如果测试没有真正找到她的上限，我们会如实标注「未测出」，而不是给一个看起来确定的等级。</p>
+      </div>
+      <div class="rail">
+        <div class="fig"><span class="n">50</span><span class="l">items in the bank, in five parts</span></div>
+        <div class="fig"><span class="n">5</span><span class="l">CEFR levels covered, A1 to C1</span></div>
+        <div class="fig"><span class="n">3 / 4</span><span class="l">correct to move up a level</span></div>
+        <div class="fig"><span class="n">0.5</span><span class="l">confidence reported when we did not find her ceiling</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="shead">
+      <span class="num">03</span>
+      <h2 class="title">How often we measure after that</h2>
+      <span class="zh-title">之后多久测一次</span>
+    </div>
+    <div class="row">
+      <div class="prose">
+        <p>There is no second test. After placement, assessment stops being an event and becomes a by-product of the work.</p>
+        <p>Every reading session, every unit, every piece of writing and every recording updates the record. A student is never asked to sit down and be examined again.</p>
+        <p><b>Help fades word by word, not by level.</b> Each word she meets carries its own scaffold: full Chinese gloss, then an English definition, then nothing. There is no global difficulty switch anywhere in the product, so she is never told she has been promoted or demoted as a person. Fading is judged over a seven-day window of her actual performance on that word.</p>
+        <p><b>Every failure comes back.</b> Anything she gets wrong is scheduled to return after 3 days, then 14, then 30, then 60, moving forward only when she gets it right and resetting when she does not. Nothing is marked wrong without being scheduled to return.</p>
+        <p class="zh">分级测试之后没有第二次考试。评估变成学习的副产品：她读的每一段、写的每一句、录的每一段音，都会更新记录。中文提示按「词」逐个淡出，不按等级统一切换。</p>
+      </div>
+      <div class="rail">
+        <div class="fig"><span class="n">1</span><span class="l">formal test, ever</span></div>
+        <div class="fig"><span class="n">3 · 14 · 30 · 60</span><span class="l">days at which a failure returns</span></div>
+        <div class="fig"><span class="n">7</span><span class="l">day window used to decide a word's help can fade</span></div>
+        <div class="fig"><span class="n">30</span><span class="l">day window for judging an error pattern</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="shead">
+      <span class="num">04</span>
+      <h2 class="title">What happens when she gets something wrong</h2>
+      <span class="zh-title">答错之后</span>
+    </div>
+    <div class="row">
+      <div class="prose">
+        <p>This is the part of the product we consider our own, and the part we would most like reviewed.</p>
+        <p><b>Every failure is diagnosed as language or idea.</b> When a student studying in a second language gets a science question wrong, a conventional system records that she does not understand the science. Often she understood it and could not read the question. We label each failure <code>language</code>, <code>concept</code>, or both, and only a concept failure counts against her understanding of the subject.</p>
+        <p><b>The retry is clean.</b> She sees the same question again with Chinese support only. No hint, no extra time, no narrowing of the options. We record how long the first attempt took.</p>
+        <p><b>The feedback is short and it is hers.</b> It names the pattern in Chinese and quotes her own sentence back to her. It never returns a rewrite longer than one clause, and it never supplies the answer before she has attempted it.</p>
+        <p class="zh">她做错时，我们会判断是「语言」还是「概念」的问题。只有概念问题才算作她没掌握学科内容。重做时只保留中文提示，不给额外线索，也不延长时间。</p>
+      </div>
+      <div class="rail">
+        <div class="fig"><span class="n">2</span><span class="l">causes we separate: the language or the idea</span></div>
+        <div class="fig"><span class="n">0</span><span class="l">hints on a retry</span></div>
+        <div class="fig"><span class="n">1</span><span class="l">clause, the longest correction we will write</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="shead">
+      <span class="num">05</span>
+      <h2 class="title">The error patterns we can name</h2>
+      <span class="zh-title">我们能识别的错误类型</span>
+    </div>
+    <div class="row">
+      <div class="prose">
+        <p>A closed list of seven. It is closed on purpose: a system that can name any error names too many, and a student who is told about eleven different mistakes learns nothing.</p>
+        <p>The first six are things Chinese does not mark on a word, which is where a Chinese-native student's written English most reliably breaks.</p>
+        <div class="patterns">
+          <span class="pat">tense_verb_form</span>
+          <span class="pat">third_person_s</span>
+          <span class="pat">plural</span>
+          <span class="pat">article</span>
+          <span class="pat">copula</span>
+          <span class="pat">pos_confusion</span>
+          <span class="pat silent">pronoun_gender</span>
+        </div>
+        <p><b>The seventh is detected but never shown.</b> 他 and 她 are the same sound in Mandarin, so he/she confusion is the most characteristic Chinese-English error there is, and until 11 September 2026 we could not name it. Naming it correctly requires working out who the pronoun refers to, which is harder than spotting a missing plural. Until we have measured how often we would accuse a student wrongly, we count this pattern and show it to nobody: not the student, not the report, not the teacher.</p>
+        <p class="zh">第七项（他/她混用）目前只统计、不展示。要判断代词指谁比判断复数少个 s 难得多，在我们测出误判率之前，不会对任何人显示。</p>
+      </div>
+      <div class="rail">
+        <div class="fig"><span class="n">7</span><span class="l">patterns, closed list</span></div>
+        <div class="fig"><span class="n">1</span><span class="l">of them silent until its false-alarm rate is measured</span></div>
+        <div class="fig"><span class="n">0</span><span class="l">multiple-choice questions anywhere in the product</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="shead">
+      <span class="num">06</span>
+      <h2 class="title">What we claim, and what we do not</h2>
+      <span class="zh-title">我们承诺什么，不承诺什么</span>
+    </div>
+    <div class="pair">
+      <div class="panel do">
+        <h3>We claim this</h3>
+        <ul>
+          <li>We can tell you whether a failure was the English or the subject.<span class="zh">我们能区分她是没懂英语还是没懂学科。</span></li>
+          <li>We can show what she can produce, not only what she recognises.<span class="zh">我们看的是她能写出什么，不只是她认得什么。</span></li>
+          <li>We place her, and we tell you how confident that placement is.<span class="zh">我们给出等级，同时给出置信度。</span></li>
+          <li>Support fades per word, on evidence, without ever announcing a level to her.<span class="zh">中文提示按词淡出，依据是她的表现，不会给她贴等级标签。</span></li>
+        </ul>
+      </div>
+      <div class="panel dont">
+        <h3>We do not claim this</h3>
+        <ul>
+          <li>We are not an examination board. Our CEFR band is our own estimate, not a certified result.<span class="zh">我们不是考试机构。等级是我们的估算，不是官方认证。</span></li>
+          <li>We do not issue an IELTS or Cambridge score.<span class="zh">我们不出具雅思或剑桥成绩。</span></li>
+          <li>We do not replace a teacher. The product is built to hand a teacher one decision a day, not to take her job.<span class="zh">我们不替代教师。产品每天只给教师一个判断，不接管教学。</span></li>
+          <li>We do not take a beginner to fluency. We take a student from unable to follow a lesson in English to able to follow one.<span class="zh">我们做不到从零到流利。我们做的是让她从听不懂英文课，到能听懂。</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="shead">
+      <span class="num">07</span>
+      <h2 class="title">What we have not yet proved</h2>
+      <span class="zh-title">尚未验证的部分</span>
+    </div>
+    <div class="row">
+      <div class="prose">
+        <p>This section exists because you would find these out anyway, and we would rather you found them here. Every item is open at the date on this document.</p>
+        <div class="ledger">
+          <div class="item">
+            <span class="status">Unverified</span>
+            <span class="what"><b>No teaching content has been read by a qualified teacher.</b> Every text, question and Chinese explanation was machine-written and machine-checked. The founder has read four reference files; no qualified Chinese-native teacher has reviewed any of the twenty-four a student actually meets. We track this as a debt, print the count on every build, and no automated process is permitted to clear it.</span>
+          </div>
+          <div class="item">
+            <span class="status">Unverified</span>
+            <span class="what"><b>The language-or-idea diagnosis has never been checked against a teacher.</b> Our own gate requires it to agree with a human marker on at least 14 of 20 items before we build on it. That comparison has not been run. This is the single most important unverified claim in this document.</span>
+          </div>
+          <div class="item">
+            <span class="status">Unverified</span>
+            <span class="what"><b>Speaking has not been tested on a real phone.</b> It has been proved against a simulator and against the scoring service directly, never with a student's own device and microphone.</span>
+          </div>
+          <div class="item">
+            <span class="status">In progress</span>
+            <span class="what"><b>The English course is twelve units of a planned twenty.</b> Forty-five target words, four units at each of A1, A2 and B1, each teaching one grammatical pattern. Twelve is the reduced figure our own build order names when a week slips, so this is the degraded plan met rather than the full one. The unlimited part, where a student reads any text she brings and the product teaches from it, is built and works.</span>
+          </div>
+          <div class="item">
+            <span class="status">Resolved</span>
+            <span class="what"><b>Placement no longer rests on recognition alone.</b> Until 11 September a student's level came from the vocabulary section only, which measures what she recognises while the product teaches what she can produce. Her written answer now confirms or moves that level by at most one band, and the record says which of the two decided it. Resolved 17 September 2026, and left on this list rather than deleted: it was published as a fault, and a reader who saw it deserves to see it closed.</span>
+          </div>
+        </div>
+      </div>
+      <div class="rail">
+        <div class="fig"><span class="n">14 / 20</span><span class="l">agreement with a human marker our own gate requires, not yet run</span></div>
+        <div class="fig"><span class="n">0</span><span class="l">content files reviewed by a qualified teacher</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="shead">
+      <span class="num">08</span>
+      <h2 class="title">Her data, and who can see it</h2>
+      <span class="zh-title">数据与可见范围</span>
+    </div>
+    <div class="row">
+      <div class="prose">
+        <p><b>Speaking is solo.</b> No student is ever shown another student's recording, pronunciation score or transcript. There are no leaderboards anywhere in the product, and this is enforced in the database rather than in the interface.</p>
+        <p><b>Her voice.</b> Recordings are stored in Cloudflare R2. During upload, parts of a recording sit in a cache for at most 15 minutes and are then deleted automatically, whether or not anything else happens.</p>
+        <p><b>Where it lives.</b> The database is in Singapore, the speech service is in Singapore, and the application runs in Singapore. Nothing routes through the United States.</p>
+        <p><b>What a teacher sees.</b> Records for students on her own roster only, enforced per row in the database. A teacher cannot open another teacher's class. Access to a student's actual voice recordings is a separate, later decision and is closed today.</p>
+        <p><b>What a school controls.</b> Which fields appear on a parent report, and whether a CEFR level may be shown at all. A level is never sent to a parent without the school's own framing alongside it.</p>
+        <p class="zh">口语是私人的：任何学生都看不到别人的录音、发音分数或转写。没有排行榜。数据全部存放在新加坡。教师只能看到自己班级的记录。家长报告上显示哪些内容，由学校决定。</p>
+      </div>
+      <div class="rail">
+        <div class="fig"><span class="n">15</span><span class="l">minutes before an in-transit recording is deleted automatically</span></div>
+        <div class="fig"><span class="n">0</span><span class="l">leaderboards, now or later</span></div>
+        <div class="fig"><span class="n">SG</span><span class="l">region for database, speech and application</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ask">
+    <h2>One thing we would ask of you</h2>
+    <p>Section 7 names our most important gap: the language-or-idea diagnosis has never been compared against a real teacher. Our own rule says it must agree with a human marker on at least 14 of 20 items before we build further on it.</p>
+    <p><b>If one of your teachers would mark twenty items for us, that gate closes.</b> It is roughly an hour of work, it needs no technical knowledge, and it would make the central claim in this document a measured one rather than a stated one. We would publish the result either way, including if we fail it.</p>
+    <p class="zh">第 7 节里最重要的一项：我们的「语言还是概念」判断，还没有和真人教师比对过。如果贵机构有一位教师愿意批改二十道题（约一小时，不需要任何技术背景），这一项就能验证。无论结果好坏，我们都会如实公布。</p>
+  </div>
+
+  <footer>
+    Ramp · Bilingual study platform for Chinese-native students learning subjects in English.<br>
+    This document describes the product as built on 11 September 2026, with the placement section updated on 17 September 2026 when the test's ceiling moved to C1. Figures are read from the running system, not estimated.<br>
+    Chinese text machine-written, pending review by a Chinese-native teacher.
+  </footer>
+
+</div>
+
+</body>
+</html>
