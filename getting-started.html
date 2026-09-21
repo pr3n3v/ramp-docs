@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<style>:root{color-scheme:light dark}body{margin:0}</style>
+</head>
+<body>
+<title>Your First Week on Ramp</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Source+Sans+3:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;500&family=Noto+Sans+SC:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --paper:#faf8f5; --raised:#fff; --ink:#1c1917; --muted:#57534e; --faint:#8a8279;
+    --rule:#e4dfd7; --soft:#f0ece5;
+    --accent:#1f5f5b; --accent-wash:#e4efed;
+    --warn:#9a6212; --warn-wash:#f9f0e0;
+    --serif:"Source Serif 4","Noto Serif SC",Georgia,serif;
+    --sans:"Source Sans 3","Noto Sans SC",ui-sans-serif,system-ui,sans-serif;
+    --zserif:"Noto Serif SC","Source Serif 4","Songti SC",serif;
+    --zsans:"Noto Sans SC","Source Sans 3","PingFang SC","Microsoft YaHei",sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --paper:#141310; --raised:#1c1a17; --ink:#eceae5; --muted:#a8a29a; --faint:#857f76;
+    --rule:#2d2a25; --soft:#232019; --accent:#6fb5ae; --accent-wash:#16292a;
+    --warn:#d9a55c; --warn-wash:#2a2115;
+  }}
+  :root[data-theme="dark"]{
+    --paper:#141310; --raised:#1c1a17; --ink:#eceae5; --muted:#a8a29a; --faint:#857f76;
+    --rule:#2d2a25; --soft:#232019; --accent:#6fb5ae; --accent-wash:#16292a;
+    --warn:#d9a55c; --warn-wash:#2a2115;
+  }
+  *{box-sizing:border-box}
+  html{scroll-padding-top:64px}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.7;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:780px;margin:0 auto;padding:0 22px 88px}
+
+  .switch{position:sticky;top:0;z-index:5;background:var(--paper);padding:14px 0 12px;border-bottom:1px solid var(--rule);display:flex;gap:8px;align-items:center}
+  .switch button{font-family:var(--sans);font-size:13px;font-weight:500;padding:6px 15px;border-radius:999px;border:1px solid var(--rule);background:var(--raised);color:var(--muted);cursor:pointer}
+  .switch button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+  .switch button:focus-visible,.jump a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+  [data-doc]{display:none}
+  [data-doc].on{display:block}
+  .zh{font-family:var(--zsans);line-height:1.95;font-weight:300}
+  .zh h1,.zh h2,.zh .stand{font-family:var(--zserif)}
+  .zh strong,.zh h3{font-weight:500}
+
+  header.top{padding:44px 0 26px;border-bottom:2px solid var(--ink)}
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin:0 0 14px}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(30px,5.8vw,44px);line-height:1.08;letter-spacing:-.015em;margin:0 0 16px;text-wrap:balance}
+  .zh h1{line-height:1.3;letter-spacing:.01em;font-weight:500}
+  .stand{font-family:var(--serif);font-size:clamp(17px,2.4vw,19px);line-height:1.6;color:var(--muted);margin:0;max-width:56ch}
+  .zh .stand{line-height:1.9}
+
+  .jump{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+  .jump a{font-size:15px;font-weight:500;color:var(--accent);text-decoration:none;border:1px solid var(--accent);border-radius:3px;padding:7px 14px}
+  .jump a:hover{background:var(--accent-wash)}
+
+  section{padding:34px 0;border-bottom:1px solid var(--rule)}
+  section:last-of-type{border-bottom:0}
+  h2{font-family:var(--serif);font-weight:600;font-size:clamp(22px,3.6vw,29px);line-height:1.22;margin:0 0 8px;letter-spacing:-.01em;text-wrap:balance}
+  .zh h2{line-height:1.45;font-weight:500;letter-spacing:.01em}
+  .who{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:8px}
+  h3{font-weight:600;font-size:16.5px;margin:30px 0 10px}
+  p{margin:0 0 14px}
+  strong{font-weight:600}
+  .lede{color:var(--muted);max-width:62ch}
+
+  /* The labels exactly as they appear on screen, drawn like the app's own buttons. */
+  .ui{font-family:var(--zsans);font-weight:400;font-size:.92em;white-space:nowrap;border:1px solid var(--rule);background:var(--raised);border-radius:4px;padding:1px 7px;color:var(--ink)}
+  .uien{font-family:var(--sans);font-weight:500;font-size:.92em;white-space:nowrap;border:1px solid var(--rule);background:var(--raised);border-radius:4px;padding:1px 7px}
+
+  ol.steps{list-style:none;counter-reset:s;margin:0 0 14px;padding:0}
+  ol.steps>li{counter-increment:s;position:relative;padding:0 0 12px 38px}
+  ol.steps>li::before{content:counter(s);position:absolute;left:0;top:1px;width:25px;height:25px;border-radius:50%;background:var(--accent-wash);color:var(--accent);font-family:var(--mono);font-size:12.5px;font-weight:500;display:flex;align-items:center;justify-content:center}
+  ul.plain{margin:0 0 14px;padding-left:20px}
+  ul.plain li{margin-bottom:8px}
+  ul.plain li::marker{color:var(--faint)}
+
+  .daily{display:grid;grid-template-columns:auto 1fr;gap:14px 18px;margin:18px 0;align-items:baseline}
+  .daily dt{margin:0}
+  .daily dt .ui{font-size:15px;padding:3px 10px}
+  .daily dd{margin:0}
+  @media (max-width:520px){.daily{grid-template-columns:1fr;gap:4px}.daily dd{margin-bottom:12px}}
+
+  .tbl{overflow-x:auto;margin:18px 0}
+  table{border-collapse:collapse;width:100%;min-width:460px;font-size:14.5px}
+  th,td{text-align:left;padding:10px 14px 10px 0;border-bottom:1px solid var(--soft);vertical-align:top;line-height:1.6}
+  thead th{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);font-weight:500;border-bottom:1px solid var(--rule)}
+  td.msg{font-family:var(--zsans);min-width:180px}
+
+  .tip{background:var(--accent-wash);border-radius:3px;padding:14px 18px;margin:18px 0;font-size:15.5px;line-height:1.75}
+  .warn{background:var(--warn-wash);border-left:3px solid var(--warn);border-radius:0 3px 3px 0;padding:14px 18px;margin:18px 0;font-size:15.5px;line-height:1.75}
+  .warn b{color:var(--warn);font-weight:600}
+  .zh .tip,.zh .warn{line-height:1.95}
+  .tip p:last-child,.warn p:last-child{margin-bottom:0}
+
+  footer{border-top:2px solid var(--ink);margin-top:8px;padding-top:20px;font-size:13.5px;color:var(--faint);line-height:1.75}
+  footer a{color:var(--accent)}
+  a{color:var(--accent)}
+  @media (max-width:560px){.wrap{padding:0 16px 64px}}
+</style>
+
+<div class="wrap">
+  <div class="switch">
+    <button type="button" id="b-en" aria-pressed="true">English</button>
+    <button type="button" id="b-zh" aria-pressed="false">中文</button>
+  </div>
+
+  <!-- ============================= ENGLISH ============================= -->
+  <div data-doc="en" class="on">
+    <header class="top">
+      <p class="kicker">Ramp &middot; for our first students and teachers &middot; 22 September 2026</p>
+      <h1>Your first week on Ramp</h1>
+      <p class="stand">You are one of the first fifty people to use Ramp. This page tells you what to do on day one, what to do each day after that, and what to do when something goes wrong.</p>
+      <nav class="jump" aria-label="Jump to">
+        <a href="#en-students">I'm a student</a>
+        <a href="#en-teachers">I'm a teacher</a>
+        <a href="#en-problems">Something went wrong</a>
+      </nav>
+    </header>
+
+    <section>
+      <h2>How the first week runs</h2>
+      <p class="lede">Ramp helps Chinese-speaking students learn English. It explains in Chinese, and the Chinese fades word by word as you stop needing it. It never gives the answer before you have tried. When you get something wrong, it works out whether the problem was the English or the idea.</p>
+      <ol class="steps">
+        <li><strong>Teachers sign up first</strong> and choose <span class="ui">老师</span> on the sign-up form.</li>
+        <li><strong>Students sign up in class</strong> on their own phones and start the placement test straight away. It takes about 25 minutes.</li>
+        <li><strong>The teacher sends us the class list:</strong> the email address each student signed up with. We connect the class, usually within a day. Until then the teacher's pages show no students, and that is expected.</li>
+        <li><strong>From then on</strong> students practise about 20 minutes a day, and the teacher opens Ramp before class.</li>
+      </ol>
+    </section>
+
+    <section id="en-students">
+      <span class="who">Students</span>
+      <h2>For students</h2>
+      <p class="lede">Everything in Ramp is in Chinese. What you write and say is English.</p>
+
+      <h3>What you need</h3>
+      <ul class="plain">
+        <li>Your own phone or computer. Use <strong>Chrome</strong> on Android or <strong>Safari</strong> on iPhone. Don't open the link inside WeChat.</li>
+        <li>About 25 quiet minutes on day one, somewhere you can read out loud.</li>
+        <li>Your email address, typed carefully.</li>
+      </ul>
+
+      <h3>Day one: sign up</h3>
+      <ol class="steps">
+        <li>Open the link your teacher gives you and tap <span class="ui">去注册</span>.</li>
+        <li><span class="ui">姓名</span>: your real name, so your teacher knows it's you.</li>
+        <li><span class="ui">我是</span>: leave it on <span class="ui">学生</span>.</li>
+        <li><span class="ui">邮箱</span>: type it carefully, then tell your teacher exactly what you typed.</li>
+        <li><span class="ui">密码</span>: at least 6 characters. <strong>Write it down.</strong> Ramp can't reset a forgotten password for you yet.</li>
+        <li>Tap <span class="ui">创建账号</span>. You go straight in. No confirmation email is sent.</li>
+      </ol>
+
+      <h3>Day one: the placement test</h3>
+      <p>It starts by itself. It isn't an exam. It finds the right place for you to start. Do it on your own, without a dictionary or a translation app, or Ramp will start you in the wrong place. There are five parts:</p>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>Part</th><th>What you do</th></tr></thead>
+          <tbody>
+            <tr><td><span class="ui">词汇</span></td><td>Type the missing word in a sentence. It gets harder when you're right and easier when you're not.</td></tr>
+            <tr><td><span class="ui">计时阅读</span></td><td>Tap <span class="ui">开始计时读</span>, read a short passage, tap <span class="ui">读完了，去答题</span>, then fill three blanks. The clock keeps running until you tap <span class="ui">交答案</span>, so answer straight away.</td></tr>
+            <tr><td><span class="ui">写一段</span></td><td>Write 3 or 4 sentences in English. If the idea is wrong, you get one more try with Chinese help only.</td></tr>
+            <tr><td><span class="ui">朗读</span></td><td>Allow the microphone and read one sentence aloud. Ramp keeps this sentence so you can hear your progress later.</td></tr>
+            <tr><td><span class="ui">复述</span></td><td>Say the passage back in your own words.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tip">
+        <p>After you tap <span class="ui">存下来</span>, stay on the page for a few seconds. Leaving too fast can lose the recording. If the microphone won't work, tap <span class="ui">先跳过</span>. If your connection drops, open Ramp again and you'll carry on from where you stopped.</p>
+      </div>
+      <p>At the end you see your level (A1 to C1), your three most common mistakes, three sounds to practise first, and one sentence you wrote yourself.</p>
+      <div class="warn">
+        <p><b>Take the test once, then wait.</b> You take this test twice: now, and again around week ten, so you can see how far you've come. When you've finished, <strong>don't tap <span class="ui">接着做</span> on the <span class="ui">分级</span> page.</strong> It starts the week-ten test straight away, and you only get one. If <span class="ui">今天</span> sends you back to <span class="ui">分级</span>, don't start it either. Use <span class="ui">课程</span> and <span class="ui">阅读</span>, and tell your teacher.</p>
+      </div>
+
+      <h3>Every day, about 20 minutes</h3>
+      <p>These are the tabs at the top of the screen.</p>
+      <dl class="daily">
+        <dt><span class="ui">今天</span></dt>
+        <dd><strong>Today's practice.</strong> Things you met before come back (<span class="ui">回来的题</span>) and new ones arrive (<span class="ui">新的题</span>). The number of items changes from day to day; it takes about 20 minutes. <span class="ui">我不会</span> is a fine answer: the item comes back later. Some items ask you to mark yourself <span class="ui">对了</span> or <span class="ui">还不对</span>. Be honest, because that decides when the item comes back.</dd>
+        <dt><span class="ui">课程</span></dt>
+        <dd><strong>Course.</strong> Twelve English units at A1, A2 and B1. Open any of them. Each unit has five steps: <span class="ui">中英对照</span>, <span class="ui">读一段</span>, <span class="ui">自己说一遍</span> (you type this one), <span class="ui">回想</span>, <span class="ui">做完了</span>. The <span class="ui">科学</span> shelf opens when your teacher opens it for you.</dd>
+        <dt><span class="ui">阅读</span></dt>
+        <dd><strong>Reading.</strong> Paste any English text, or tap <span class="ui">拍照上传</span> to photograph a page (10 photos a day). Tap any word to see what it means. The better you know a word, the less Chinese it shows. <span class="ui">看简写版</span> gives you an easier version.</dd>
+        <dt><span class="ui">辅导</span></dt>
+        <dd><strong>Tutor, physics only for now.</strong> Type the question, paste the paragraph it comes from, and write your own attempt first. The tutor won't give the answer before you've tried. It asks questions that lead you there.</dd>
+        <dt><span class="ui">写作</span></dt>
+        <dd><strong>Writing isn't open yet.</strong> The page will be empty.</dd>
+      </dl>
+
+      <h3>When you get something wrong</h3>
+      <p>Sometimes Ramp asks you to try the same question again (<span class="ui">再做一次</span>), with Chinese help and nothing else: no hint and no extra time. It isn't a punishment. It's how Ramp tells whether the problem was the English or the idea. Every mistake comes back later, so you get the chance to fix it.</p>
+
+      <h3>Your recordings are private</h3>
+      <p>Only you can play your recordings. No other student sees your recordings, scores or answers, and there are no rankings. Your teacher sees how the class is doing overall and may be told when someone needs help, but can't hear your recordings.</p>
+
+      <h3>Sharing a phone or computer</h3>
+      <p>There is no sign-out button yet. Use your own device, or open Ramp in a private browser window.</p>
+    </section>
+
+    <section id="en-teachers">
+      <span class="who">Teachers</span>
+      <h2>For teachers</h2>
+      <p class="lede">The sign-up page and the student screens are in Chinese. Once you're signed in, your own screens are in English.</p>
+
+      <h3>Before your class starts</h3>
+      <ol class="steps">
+        <li>Open the link, tap <span class="ui">去注册</span>, fill in <span class="ui">姓名</span>, <span class="ui">邮箱</span> and <span class="ui">密码</span>, and under <span class="ui">我是</span> choose <span class="ui">老师</span>. The form starts on <span class="ui">学生</span>, so change it, or Ramp sends you to the student placement test. If that happens, tell us and we'll fix it when we connect your class.</li>
+        <li>In class, ask each student to sign up, and write down the exact email each one used. Check the spelling. One wrong address holds up the whole class.</li>
+        <li>Send the list to Pranav with your class name and subject. We connect you and your students, usually within a day.</li>
+        <li>Until then your pages show no students, and the card says it did not build. That is expected.</li>
+      </ol>
+
+      <h3>Every morning: Today's card</h3>
+      <p>Open Ramp before class. The card is built at 7:00 each morning, Beijing time (the same as Malaysia and Singapore). It gives you one thing to do and names one student at most. If nothing needs you, it says <span class="uien">Nothing urgent. Class is in good shape.</span></p>
+      <div class="warn">
+        <p><b>Expect this in the first weeks:</b> <span class="uien">Today's card did not build.</span> The card needs at least five active students, and for now "active" means they took the placement test or used the tutor in the last 14 days. It doesn't mean all is well, and it doesn't mean something is broken.</p>
+      </div>
+
+      <h3>The Split page</h3>
+      <p>Click <span class="uien">Split</span> at the top. For each topic you see how many mistakes came from the English (<span class="uien">Language</span>), how many came from the idea (<span class="uien">Concept</span>) and how many are <span class="uien">Unclear</span>, over the last 7 or 30 days. It shows counts, never names. It fills up as students take the placement test and use the tutor.</p>
+
+      <h3>Opening Science for a student</h3>
+      <p>Type <strong>/teacher/students</strong> at the end of the Ramp address; there's no menu link yet. Each student's name has a button that opens the <span class="ui">科学</span> shelf. One tap opens it, and it can't be closed again.</p>
+
+      <h3>What you can't do yet</h3>
+      <ul class="plain">
+        <li>Set assignments or tasks.</li>
+        <li>Mark work, or change Ramp's decision about whether a mistake was the language or the idea. Tell us when you disagree. That's exactly what we need to hear.</li>
+        <li>Hear a student's recordings or read their answers. Keeping recordings private is deliberate.</li>
+        <li>Sign out. Use your own device.</li>
+        <li>Reset a password. If a student forgets theirs, send us their email and we'll reset it.</li>
+      </ul>
+
+      <h3>How you help us most</h3>
+      <p>Tell us whenever Ramp is wrong: a wrong diagnosis, a Chinese note that's wrong or unnatural, a question at the wrong level. Send a screenshot, the time and the page address. To change content, see <a href="how-we-built-it.html">How We Built the Test</a>. For the method behind the numbers, see <a href="how-ramp-measures.html">How Ramp Measures a Student</a>.</p>
+    </section>
+
+    <section id="en-problems">
+      <span class="who">Everyone</span>
+      <h2>When something goes wrong</h2>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>On screen</th><th>What it means</th><th>What to do</th></tr></thead>
+          <tbody>
+            <tr><td class="msg">点得太快了，等一下再试。</td><td>Too many taps in a minute</td><td>Wait a few seconds and try again.</td></tr>
+            <tr><td class="msg">今天的用量到上限了，明天再来。</td><td>Today's AI help is used up</td><td>It comes back at 8:00 am Beijing time.</td></tr>
+            <tr><td class="msg">这个词现在查不到，别的都能用。</td><td>Word lookup is down for now</td><td>Keep reading and try the word later.</td></tr>
+            <tr><td class="msg">没有拿到麦克风权限。</td><td>The microphone is blocked</td><td>Allow it in your browser settings, or tap <span class="ui">先跳过</span>.</td></tr>
+            <tr><td class="msg">这个浏览器录不了音。</td><td>This browser can't record</td><td>Switch to Chrome or Safari, or tap <span class="ui">先跳过</span>.</td></tr>
+            <tr><td class="msg">注册没有成功，请稍后再试。</td><td>Sign-up was refused</td><td>Use a password of at least 6 characters and try again.</td></tr>
+            <tr><td class="msg">邮箱或者密码不对。</td><td>Wrong email or password</td><td>Check both. If you've forgotten the password, tell your teacher.</td></tr>
+            <tr><td class="msg">还没有找到你的档案。</td><td>Your account isn't set up yet</td><td>Tell your teacher.</td></tr>
+            <tr><td class="msg">出了一点问题，请稍后再试。</td><td>Something broke</td><td>Tap <span class="ui">再试一次</span>. If it keeps happening, report it.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Reporting a problem:</strong> students tell their teacher, and teachers tell Pranav. A screenshot, the time and the page address let us find it fast.</p>
+    </section>
+
+    <footer>
+      <p>Written on 22 September 2026 from the app as it is today. Some parts are still being finished, and this page will change when they do.</p>
+      <p>The Chinese on this page was drafted by a machine and hasn't yet been checked by a native speaker. If something reads oddly, please tell us.</p>
+    </footer>
+  </div>
+
+  <!-- ============================== 中文 ============================== -->
+  <div data-doc="zh" class="zh">
+    <header class="top">
+      <p class="kicker">Ramp &middot; 致第一批学生和老师 &middot; 2026年9月22日</p>
+      <h1>Ramp 第一周怎么用</h1>
+      <p class="stand">你是最早使用 Ramp 的五十个人之一。这一页告诉你：第一天做什么，之后每天做什么，遇到问题怎么办。</p>
+      <nav class="jump" aria-label="跳到">
+        <a href="#zh-students">我是学生</a>
+        <a href="#zh-teachers">我是老师</a>
+        <a href="#zh-problems">遇到问题</a>
+      </nav>
+    </header>
+
+    <section>
+      <h2>第一周怎么安排</h2>
+      <p class="lede">Ramp 帮助说中文的学生学英语。它用中文讲解，你每学会一个词，这个词的中文提示就少一点，直到你不再需要。你自己试过之前，它不会直接给答案。你做错的时候，它会判断问题出在英语上，还是出在意思上。</p>
+      <ol class="steps">
+        <li><strong>老师先注册</strong>，在注册页上选 <span class="ui">老师</span>。</li>
+        <li><strong>学生在课堂上注册</strong>，用自己的手机，注册完马上做分级测试，大约 25 分钟。</li>
+        <li><strong>老师把班级名单发给我们：</strong>每位学生注册时用的邮箱。我们会把全班连起来，一般一天之内完成。在这之前，老师的页面上看不到学生，这是正常的。</li>
+        <li><strong>之后</strong>学生每天练大约 20 分钟，老师上课前打开 Ramp 看一眼。</li>
+      </ol>
+    </section>
+
+    <section id="zh-students">
+      <span class="who">学生</span>
+      <h2>给学生</h2>
+      <p class="lede">Ramp 里的界面都是中文。你写的和说的是英语。</p>
+
+      <h3>你需要准备</h3>
+      <ul class="plain">
+        <li>自己的手机或电脑。安卓手机用 <strong>Chrome</strong>，苹果手机用 <strong>Safari</strong>。不要在微信里直接打开链接。</li>
+        <li>第一天留出大约 25 分钟安静的时间，找一个可以出声朗读的地方。</li>
+        <li>你的邮箱地址，要仔细输入。</li>
+      </ul>
+
+      <h3>第一天：注册</h3>
+      <ol class="steps">
+        <li>打开老师给你的链接，点 <span class="ui">去注册</span>。</li>
+        <li><span class="ui">姓名</span>：写真名，老师才认得出你。</li>
+        <li><span class="ui">我是</span>：保持 <span class="ui">学生</span> 不变。</li>
+        <li><span class="ui">邮箱</span>：仔细输入，然后把你输入的邮箱原样告诉老师。</li>
+        <li><span class="ui">密码</span>：至少 6 位。<strong>请记下来。</strong>现在 Ramp 还不能帮你找回忘记的密码。</li>
+        <li>点 <span class="ui">创建账号</span>。你会直接进入，不会收到确认邮件。</li>
+      </ol>
+
+      <h3>第一天：分级测试</h3>
+      <p>测试会自动开始。这不是考试，是为了找到最适合你的起点。请一个人做，不要查词典，也不要用翻译软件，否则 Ramp 会把你放在不合适的起点。一共五部分：</p>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>部分</th><th>你要做什么</th></tr></thead>
+          <tbody>
+            <tr><td><span class="ui">词汇</span></td><td>在句子的空格里填上缺的词。答对了会变难，答错了会变简单。</td></tr>
+            <tr><td><span class="ui">计时阅读</span></td><td>点 <span class="ui">开始计时读</span>，读一小段文章，点 <span class="ui">读完了，去答题</span>，然后填三个空。点 <span class="ui">交答案</span> 之前计时一直在走，所以读完就马上答。</td></tr>
+            <tr><td><span class="ui">写一段</span></td><td>用英语写 3 到 4 句话。如果意思不对，你还有一次机会，这次只有中文提示。</td></tr>
+            <tr><td><span class="ui">朗读</span></td><td>允许使用麦克风，大声读一句话。Ramp 会留着这句话，以后你能听到自己的进步。</td></tr>
+            <tr><td><span class="ui">复述</span></td><td>用自己的话把刚才的文章说一遍。</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tip">
+        <p>点 <span class="ui">存下来</span> 以后，在页面上停几秒再离开，走得太快录音可能会丢。麦克风用不了就点 <span class="ui">先跳过</span>。网断了也没关系，重新打开 Ramp 会从断开的地方接着做。</p>
+      </div>
+      <p>做完以后你会看到：你的水平（A1 到 C1），你最常出现的三种错误，要先练的三个音，还有一句你自己写的话。</p>
+      <div class="warn">
+        <p><b>测试只做一次，然后等。</b>这个测试一共做两次：现在一次，大约第十周再做一次，用来看你进步了多少。做完以后，<strong>不要在 <span class="ui">分级</span> 页面点 <span class="ui">接着做</span>。</strong>它会马上开始第十周的测试，而那次测试只有一次机会。如果 <span class="ui">今天</span> 把你带回 <span class="ui">分级</span> 页面，也先别开始，去用 <span class="ui">课程</span> 和 <span class="ui">阅读</span>，并告诉老师。</p>
+      </div>
+
+      <h3>每天大约 20 分钟</h3>
+      <p>下面是屏幕顶部的几个栏目。</p>
+      <dl class="daily">
+        <dt><span class="ui">今天</span></dt>
+        <dd><strong>每天的练习。</strong>学过的内容会回来（<span class="ui">回来的题</span>），也会有新内容（<span class="ui">新的题</span>）。每天的题数不一样，大约 20 分钟。选 <span class="ui">我不会</span> 没关系，这道题以后会再回来。有些题要你自己选 <span class="ui">对了</span> 还是 <span class="ui">还不对</span>，请如实选，它决定这道题什么时候再出现。</dd>
+        <dt><span class="ui">课程</span></dt>
+        <dd><strong>12 个英语单元</strong>，分 A1、A2、B1 三级，可以随便选一个开始。每个单元五步：<span class="ui">中英对照</span>、<span class="ui">读一段</span>、<span class="ui">自己说一遍</span>（这一步是打字）、<span class="ui">回想</span>、<span class="ui">做完了</span>。<span class="ui">科学</span> 要等老师为你打开。</dd>
+        <dt><span class="ui">阅读</span></dt>
+        <dd><strong>粘贴任何英文文章</strong>，或者点 <span class="ui">拍照上传</span> 拍一页书（每天最多 10 张）。点任何一个词就能看到意思。你越熟悉一个词，它的中文提示就越少。<span class="ui">看简写版</span> 会给你一个更容易的版本。</dd>
+        <dt><span class="ui">辅导</span></dt>
+        <dd><strong>目前只有物理。</strong>输入题目，贴上题目出自的那一段，先写下你自己的想法。你自己试过之前，辅导不会给答案，它会一步步提问，带你想出来。</dd>
+        <dt><span class="ui">写作</span></dt>
+        <dd><strong>还没有开放</strong>，页面是空的。</dd>
+      </dl>
+
+      <h3>做错的时候</h3>
+      <p>有时候 Ramp 会让你把同一道题再做一次（<span class="ui">再做一次</span>），只给中文提示，没有别的帮助，也不多给时间。这不是惩罚。Ramp 靠这一步判断问题出在英语上还是出在意思上。每个错误以后都会再回来，让你有机会改正。</p>
+
+      <h3>你的录音是私人的</h3>
+      <p>只有你自己能播放你的录音。其他同学看不到你的录音、分数和答案，也没有排行榜。老师能看到全班的整体情况，有同学需要帮助时会收到提醒，但听不到你的录音。</p>
+
+      <h3>和别人共用手机或电脑</h3>
+      <p>现在还没有退出登录的按钮。请用自己的设备，或者在浏览器的无痕窗口里打开 Ramp。</p>
+    </section>
+
+    <section id="zh-teachers">
+      <span class="who">老师</span>
+      <h2>给老师</h2>
+      <p class="lede">注册页和学生的页面是中文的。您登录以后看到的页面是英文的。</p>
+
+      <h3>开课之前</h3>
+      <ol class="steps">
+        <li>打开链接，点 <span class="ui">去注册</span>，填写 <span class="ui">姓名</span>、<span class="ui">邮箱</span> 和 <span class="ui">密码</span>，在 <span class="ui">我是</span> 下面选 <span class="ui">老师</span>。表格默认是 <span class="ui">学生</span>，请一定改过来，否则 Ramp 会把您带到学生的分级测试。如果已经发生了，告诉我们，连接班级时我们会帮您改好。</li>
+        <li>在课堂上请每位学生注册，并记下每个人用的邮箱，注意拼写。只要有一个邮箱写错，全班都要等。</li>
+        <li>把名单连同班级名称和科目发给 Pranav。我们会把您和学生连起来，一般一天之内完成。</li>
+        <li>在这之前，您的页面上没有学生，卡片会显示没有生成。这是正常的。</li>
+      </ol>
+
+      <h3>每天早上：Today 卡片</h3>
+      <p>上课前打开 Ramp。卡片每天早上 7 点生成（北京时间，和马来西亚、新加坡时间相同）。它只给您一件要做的事，最多提到一名学生。如果没有需要您注意的事，它会显示 <span class="uien">Nothing urgent. Class is in good shape.</span></p>
+      <div class="warn">
+        <p><b>头几周您会经常看到：</b><span class="uien">Today's card did not build.</span> 卡片需要至少五名活跃的学生，而目前"活跃"是指最近 14 天内做过分级测试或用过辅导。这既不代表一切正常，也不代表出了故障。</p>
+      </div>
+
+      <h3>Split 页面</h3>
+      <p>点页面顶部的 <span class="uien">Split</span>。每个知识点下面，您会看到过去 7 天或 30 天里，有多少错误出在英语上（<span class="uien">Language</span>），多少出在意思上（<span class="uien">Concept</span>），多少还说不清（<span class="uien">Unclear</span>）。只有数字，没有名字。学生做分级测试、用辅导以后，这里才会慢慢有内容。</p>
+
+      <h3>为学生打开科学</h3>
+      <p>在 Ramp 网址的后面输入 <strong>/teacher/students</strong>，目前还没有菜单入口。每位学生的名字旁边有一个打开 <span class="ui">科学</span> 的按钮。点一下就打开，打开以后不能再关上。</p>
+
+      <h3>现在还做不到的事</h3>
+      <ul class="plain">
+        <li>布置作业或任务。</li>
+        <li>批改，或者修改 Ramp 对"错在英语还是错在意思"的判断。您不同意的时候请告诉我们，这正是我们最需要知道的。</li>
+        <li>听学生的录音或看他们的答案。录音保持私密是有意这样设计的。</li>
+        <li>退出登录。请用自己的设备。</li>
+        <li>重置密码。学生忘了密码，请把他的邮箱发给我们，我们来重置。</li>
+      </ul>
+
+      <h3>您最能帮上忙的地方</h3>
+      <p>Ramp 出错的时候请告诉我们：判断错了，中文说明不对或不自然，题目难度不合适。请附上截图、时间和页面地址。想修改内容，请看 <a href="how-we-built-it.html">How We Built the Test</a>；想了解测量方法，请看 <a href="how-ramp-measures.html">How Ramp Measures a Student</a>。</p>
+    </section>
+
+    <section id="zh-problems">
+      <span class="who">所有人</span>
+      <h2>遇到问题怎么办</h2>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>屏幕上的提示</th><th>意思</th><th>怎么办</th></tr></thead>
+          <tbody>
+            <tr><td class="msg">点得太快了，等一下再试。</td><td>一分钟内点得太多</td><td>等几秒再试。</td></tr>
+            <tr><td class="msg">今天的用量到上限了，明天再来。</td><td>今天的智能帮助用完了</td><td>北京时间早上 8 点恢复。</td></tr>
+            <tr><td class="msg">这个词现在查不到，别的都能用。</td><td>查词暂时不能用</td><td>继续读，过一会儿再查。</td></tr>
+            <tr><td class="msg">没有拿到麦克风权限。</td><td>麦克风被挡住了</td><td>在浏览器设置里打开，或者点 <span class="ui">先跳过</span>。</td></tr>
+            <tr><td class="msg">这个浏览器录不了音。</td><td>这个浏览器不能录音</td><td>换成 Chrome 或 Safari，或者点 <span class="ui">先跳过</span>。</td></tr>
+            <tr><td class="msg">注册没有成功，请稍后再试。</td><td>注册没通过</td><td>密码至少 6 位，再试一次。</td></tr>
+            <tr><td class="msg">邮箱或者密码不对。</td><td>邮箱或密码错了</td><td>检查一下。忘了密码就告诉老师。</td></tr>
+            <tr><td class="msg">还没有找到你的档案。</td><td>账号还没设置好</td><td>告诉老师。</td></tr>
+            <tr><td class="msg">出了一点问题，请稍后再试。</td><td>出了故障</td><td>点 <span class="ui">再试一次</span>。一直这样的话，请报告给我们。</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>报告问题：</strong>学生告诉老师，老师告诉 Pranav。附上截图、时间和页面地址，我们能更快找到问题。</p>
+    </section>
+
+    <footer>
+      <p>本页根据 2026 年 9 月 22 日的应用写成。有些部分还在完善，改好以后这一页也会更新。</p>
+      <p>本页的中文由机器起草，还没有请母语者核对。如果哪里读起来别扭，请告诉我们。</p>
+    </footer>
+  </div>
+</div>
+
+<script>
+(function(){
+  var KEY='ramp-firstweek-lang';
+  var docs={en:document.querySelector('[data-doc="en"]'),zh:document.querySelector('[data-doc="zh"]')};
+  var btns={en:document.getElementById('b-en'),zh:document.getElementById('b-zh')};
+  function show(l){
+    var cur=(l==='zh')?'zh':'en';
+    docs.en.classList.toggle('on',cur==='en');
+    docs.zh.classList.toggle('on',cur==='zh');
+    btns.en.setAttribute('aria-pressed',String(cur==='en'));
+    btns.zh.setAttribute('aria-pressed',String(cur==='zh'));
+    document.documentElement.lang = cur==='zh' ? 'zh-CN' : 'en';
+    try{localStorage.setItem(KEY,cur);}catch(e){}
+  }
+  var start=null;
+  try{start=localStorage.getItem(KEY);}catch(e){}
+  if(!start){var n=(navigator.language||'').toLowerCase();start=n.indexOf('zh')===0?'zh':'en';}
+  show(start);
+  btns.en.addEventListener('click',function(){show('en');});
+  btns.zh.addEventListener('click',function(){show('zh');});
+})();
+</script>
+
+</body>
+</html>
