@@ -311,7 +311,7 @@
     <h1>How Ramp Measures a Student</h1>
     <p class="standfirst">What we assess, how often, what the numbers mean, and the list of things we have not yet proved.</p>
     <div class="meta">
-      <span><b>Version</b> 17 September 2026</span>
+      <span><b>Version</b> 22 September 2026</span>
       <span><b>Status</b> Draft for review</span>
       <span><b>Prepared for</b> Partner institutions</span>
       <span><b>Data region</b> Singapore</span>
@@ -364,19 +364,43 @@
     <div class="shead">
       <span class="num">02</span>
       <h2 class="title">How we place a student at the start</h2>
-      <span class="zh-title">入学分级测试</span>
+      <span class="zh-title">入学分级</span>
     </div>
     <div class="row">
       <div class="prose">
-        <p>One adaptive test, drawn from a bank of 50 items in five parts: 20 vocabulary, 15 timed reading, 5 written, 5 read aloud, 5 spoken explanation. It spans five CEFR levels, A1 to C1. A student sits the part of it the test decides they need, which is why no two students answer the same number of questions.</p>
-        <p>The test moves. Each level serves 4 items; 3 correct moves the student up, fewer moves them down. Their band is the highest level they passed.</p>
-        <p><b>We report how sure we are, and we say when we are not.</b> If a level above their band was served in full and not passed, we found their ceiling and report confidence 0.8. If the test ran off the top or the bottom, we never found their ceiling, and we report 0.5 with wording that says the test did not find out rather than pretending it did.</p>
-        <p class="zh">测试会自动调整难度：每个等级出 4 题，答对 3 题升级。如果测试没有真正找到学生的上限，我们会如实标注「未测出」，而不是给一个看起来确定的等级。</p>
+        <p>In two steps: a short adaptive check of vocabulary on the first day, and the rest of the check during the first week. First the student tells us where they think they are: five cards from A1 to C1, each with one line on what they can do, or 我不确定 / Not sure, which shows everyday statements to pick from instead. The quick check starts at the level they chose, or at A2 if they pick 还是不确定 / Still not sure. It moves up a level on a pass and down on a fail, and stops when it would return to a level already done, at either end of the scale, or after five levels. It is designed to take 2 to 4 minutes.</p>
+        <p><b>The kind of question changes with the level.</b> Each level has its own pass mark.</p>
+        <ul class="plain">
+          <li>
+            <span class="k">A1 · Know the word<small>认识单词</small></span>
+            <span class="v">Common single words, one at a time. The student answers 认识 (I know it) or 不认识 (I don't know it). Twelve words: nine real, three made up to catch guessing. Pass: at least 7 of the 9 real words known, and at most 1 of the 3 made-up words claimed.</span>
+          </li>
+          <li>
+            <span class="k">A2 · Fill the gap, with a Chinese hint<small>填空，有中文提示</small></span>
+            <span class="v">A sentence with one word missing. The first letter is given, with the Chinese meaning of the missing word, and the student types the word. Four sentences. Pass: 3 of 4.</span>
+          </li>
+          <li>
+            <span class="k">B1 · Fill the gap<small>填空</small></span>
+            <span class="v">The same, with no Chinese hint. Four sentences. Pass: 3 of 4.</span>
+          </li>
+          <li>
+            <span class="k">B2 and C1 · Finish the words<small>补全单词</small></span>
+            <span class="v">A short paragraph, everyday at B2 and academic at C1, in which some words have lost their second half. The student finishes each word. Eight blanks. Pass: 6 of 8.</span>
+          </li>
+        </ul>
+        <p>Their level is the highest level they passed, or A1 if they passed none. Passing the know-the-word level alone can never place a student above A1: every level above it asks them to type the word. Nothing on screen says right or wrong during the check. Typed answers are marked exactly, except that one small typo is forgiven on words of five letters or more. It is never forgiven when it changes the letters we gave, or when it makes another real word or another form of the same word, such as a plural or a past tense, because those are the mistakes the product exists to find. Know-the-word answers never enter the student's word record: tapping 认识 is never taken as knowing a word.</p>
+        <p><b>We report how sure we are, and we say when we are not.</b> If the check found a level the student passes and failed the level above it, we report confidence 0.8. If it ran off the top or the bottom of the scale, we never found their ceiling, and we report 0.5 with wording that says the check did not find out rather than pretending it did. The student is told the same thing on the result screen.</p>
+        <p><b>The rest of the check comes in the first week.</b> A card on the student's home, 完成剩下的测试 / Finish the rest of your check, leads to timed reading, one piece of writing, and two speaking parts: reading aloud and a spoken explanation. Each part is saved when it is done, so it can be spread over several sittings. The written answer can confirm the quick check's level or move it one level up or down, and the record says which of the two decided it. When it moves the level, we report confidence 0.5. Reading and speaking are recorded separately and never count towards the level.</p>
+        <p><b>Marks are worked out and saved by the server.</b> The phone sends only what the student typed or tapped. During the quick check it is not told whether an answer was right, and it can never mark its own check or write its own result. A database test proves that.</p>
+        <p><b>The student can see why, and can say it looks wrong.</b> 为什么是这个水平 / Why this level shows each level in the order the student took it: how many they got right, the pass mark, and whether they passed. At A1 it shows real words known out of nine and made-up words claimed out of three, and never which words were made up. It never shows the right answers. Once the whole check is done, 这个结果好像不对？/ Does this result look wrong? lets the student ask their teacher to look, with a short note if they want. The teacher allows a retake, which sets the result aside, or keeps the result, and can reply either way. A retake draws on the same set of questions, so the student may see some of them again, and the teacher is told that before deciding.</p>
+        <p><b>The level picks where the course starts, and nothing else.</b> The result screen puts the two side by side: 你说 B1 · 测出来 A2 / "You said B1. The check shows A2." The student starts at the checked level or, when the two differ, at the level they said. The course marks that unit 从这里开始 / Start here. Earlier units stay open, and no unit is ever locked. The English course has units up to B1 for now, so a higher level starts at the B1 units. A later full-check level does not move a start already chosen. The level never changes the Chinese help, which is decided word by word (section 3).</p>
+        <p class="zh">分级分两步：第一天做一个几分钟的词汇短测试，第一周里再做完剩下的部分。学生先说出自己觉得的水平（A1 到 C1 五张卡片，或者选「我不确定」），短测试就从这一级开始，还是不确定就从 A2 开始；过了升一级，没过降一级，最多五级。题型随等级变化：A1 判断认不认识单个单词，其中有几个是编出来的词，用来发现乱猜；A2 填空，给首字母和中文提示；B1 填空，只给首字母；B2 和 C1 在一小段文章里把只剩前一半的词补完整。每一级有自己的过关线，水平是学生过了的最高一级。测试过程中不显示对错；较长的词允许一个小的拼写错误，但复数、时态这类错误不算拼写错误。如果没有同时找到学生过得了的一级和过不了的上一级，我们会如实说明结果还不太稳。第一周里还要做计时阅读、一段写作和两部分口语；写作可以把水平上调或下调一级，阅读和口语不算进水平。所有判分都由服务器完成并保存，手机不能给自己判分。学生可以点「为什么是这个水平」看每一级的情况（不显示正确答案），全部做完后如果觉得结果不对，可以请老师看一看，老师可以让学生重做（重做用的还是同一套题，可能会遇到做过的题），也可以保留结果；两种情况老师都可以回复。水平只决定课程从哪一课开始：学生可以从测出来的水平开始，也可以从自己说的水平开始；不锁任何一课，也不改变任何一个词的中文提示。</p>
       </div>
       <div class="rail">
-        <div class="fig"><span class="n">50</span><span class="l">items in the bank, in five parts</span></div>
         <div class="fig"><span class="n">5</span><span class="l">CEFR levels covered, A1 to C1</span></div>
-        <div class="fig"><span class="n">3 / 4</span><span class="l">correct to move up a level</span></div>
+        <div class="fig"><span class="n">5</span><span class="l">levels at most in one quick check, so a student who starts at A1 can reach C1</span></div>
+        <div class="fig"><span class="n">4</span><span class="l">kinds of question, changing with the level</span></div>
+        <div class="fig"><span class="n">3 / 4 · 6 / 8</span><span class="l">right to pass a gap level, and a half-word level</span></div>
         <div class="fig"><span class="n">0.5</span><span class="l">confidence reported when we did not find the student's ceiling</span></div>
       </div>
     </div>
@@ -390,14 +414,16 @@
     </div>
     <div class="row">
       <div class="prose">
-        <p>There is no second test. After placement, assessment stops being an event and becomes a by-product of the work.</p>
-        <p>Every reading session, every unit, every piece of writing and every recording updates the record. A student is never asked to sit down and be examined again.</p>
+        <p>Once more, in week ten, and otherwise never as an event. After the first week, assessment becomes a by-product of the work.</p>
+        <p>Every reading session, every unit, every piece of writing and every recording updates the record. Apart from week ten, a student is never asked to sit down and be examined again.</p>
+        <p><b>Week ten is a comparison.</b> 63 days after the quick check, the same kind of check opens on a second form, B. Form B tests none of the words the first form tests and uses different paragraphs, and it starts at the level the first check started at, so the two walks can be compared. The rest of the check follows it again: reading, writing and speaking.</p>
         <p><b>Help fades word by word, not by level.</b> Each word a student meets carries its own scaffold: full Chinese gloss, then an English definition, then nothing. There is no global difficulty switch anywhere in the product, so they are never told they have been promoted or demoted as a person. Fading is judged over a seven-day window of their actual performance on that word.</p>
         <p><b>Every failure comes back.</b> Anything a student gets wrong is scheduled to return after 3 days, then 14, then 30, then 60, moving forward only when they get it right and resetting when they do not. Nothing is marked wrong without being scheduled to return.</p>
-        <p class="zh">分级测试之后没有第二次考试。评估变成学习的副产品：学生读的每一段、写的每一句、录的每一段音，都会更新记录。中文提示按「词」逐个淡出，不按等级统一切换。</p>
+        <p class="zh">除了第十周，分级之后不再有考试。评估变成学习的副产品：学生读的每一段、写的每一句、录的每一段音，都会更新记录。第十周是一次对比：短测试之后第 63 天，用第二套题（B 卷）再测一次。B 卷考的词和第一套题完全不同，短文也不一样；它从第一次开始的那一级开始，这样两次结果可以对比。之后同样要做阅读、写作和口语。中文提示按「词」逐个淡出，不按等级统一切换。</p>
       </div>
       <div class="rail">
-        <div class="fig"><span class="n">1</span><span class="l">formal test, ever</span></div>
+        <div class="fig"><span class="n">2</span><span class="l">checks, ever: the first week and week ten</span></div>
+        <div class="fig"><span class="n">63</span><span class="l">days from the quick check to the week-ten check</span></div>
         <div class="fig"><span class="n">3 · 14 · 30 · 60</span><span class="l">days at which a failure returns</span></div>
         <div class="fig"><span class="n">7</span><span class="l">day window used to decide a word's help can fade</span></div>
         <div class="fig"><span class="n">30</span><span class="l">day window for judging an error pattern</span></div>
@@ -435,7 +461,7 @@
     </div>
     <div class="row">
       <div class="prose">
-        <p>A closed list of seven. It is closed on purpose: a system that can name any error names too many, and a student who is told about eleven different mistakes learns nothing.</p>
+        <p>A closed list of seven, of which six are built today. It is closed on purpose: a system that can name any error names too many, and a student who is told about eleven different mistakes learns nothing.</p>
         <p>The first six are things Chinese does not mark on a word, which is where a Chinese-native student's written English most reliably breaks.</p>
         <div class="patterns">
           <span class="pat">tense_verb_form</span>
@@ -446,13 +472,13 @@
           <span class="pat">pos_confusion</span>
           <span class="pat silent">pronoun_gender</span>
         </div>
-        <p><b>The seventh is detected but never shown.</b> 他 and 她 are the same sound in Mandarin, so he/she confusion is the most characteristic Chinese-English error there is, and until 11 September 2026 we could not name it. Naming it correctly requires working out who the pronoun refers to, which is harder than spotting a missing plural. Until we have measured how often we would accuse a student wrongly, we count this pattern and show it to nobody: not the student, not the report, not the teacher.</p>
-        <p class="zh">第七项（他/她混用）目前只统计、不展示。要判断代词指谁比判断复数少个 s 难得多，在我们测出误判率之前，不会对任何人显示。</p>
+        <p><b>The seventh is decided but not yet built.</b> 他 and 她 are the same sound in Mandarin, so he/she confusion is the most characteristic Chinese-English error there is, and until 11 September 2026 we could not name it. Today nothing detects it. Naming it correctly requires working out who the pronoun refers to, which is harder than spotting a missing plural. So when it is built, it will be counted and shown to nobody, not the student, not the report, not the teacher, until we have measured how often we would accuse a student wrongly.</p>
+        <p class="zh">第七项（他/她混用）已经决定要做，但还没有做出来，目前不会检测。要判断代词指谁比判断复数少个 s 难得多，所以做出来以后也只统计、不展示：在我们测出误判率之前，不会对任何人显示。</p>
       </div>
       <div class="rail">
-        <div class="fig"><span class="n">7</span><span class="l">patterns, closed list</span></div>
-        <div class="fig"><span class="n">1</span><span class="l">of them silent until its false-alarm rate is measured</span></div>
-        <div class="fig"><span class="n">0</span><span class="l">multiple-choice questions anywhere in the product</span></div>
+        <div class="fig"><span class="n">7</span><span class="l">patterns, closed list. Six are built</span></div>
+        <div class="fig"><span class="n">1</span><span class="l">decided and not yet built. It stays silent until its false-alarm rate is measured</span></div>
+        <div class="fig"><span class="n">0</span><span class="l">multiple-choice tasks in lessons or daily practice. The only know-it-or-not question is the level check's A1 step (section 2)</span></div>
       </div>
     </div>
   </section>
@@ -470,13 +496,15 @@
           <li>We can tell you whether a failure was the English or the subject.<span class="zh">我们能区分学生是没懂英语还是没懂学科。</span></li>
           <li>We can show what a student can produce, not only what they recognise.<span class="zh">我们看的是学生能写出什么，不只是认得什么。</span></li>
           <li>We place each student, and we tell you how confident that placement is.<span class="zh">我们给出等级，同时给出置信度。</span></li>
-          <li>Support fades per word, on evidence, without ever announcing a level to the student.<span class="zh">中文提示按词淡出，依据是学生的表现，不会给学生贴等级标签。</span></li>
+          <li>Support fades per word, on evidence. A student is never told that less help means a new level.<span class="zh">中文提示按词淡出，依据是学生的表现，不会把提示变少说成「升级」。</span></li>
+          <li>The level picks where the course starts. It never locks a unit and never changes the Chinese help.<span class="zh">水平只决定课程从哪一课开始，不锁任何一课，也不改变中文提示。</span></li>
         </ul>
       </div>
       <div class="panel dont">
         <h3>We do not claim this</h3>
         <ul>
           <li>We are not an examination board. Our CEFR band is our own estimate, not a certified result.<span class="zh">我们不是考试机构。等级是我们的估算，不是官方认证。</span></li>
+          <li>The quick check is a short vocabulary check, not a full measure of a student's English. It picks a starting point; the rest of the check adds reading, writing and speaking.<span class="zh">短测试只测词汇，不能全面衡量学生的英语。它只用来找起点，第一周剩下的测试再补上阅读、写作和口语。</span></li>
           <li>We do not issue an IELTS or Cambridge score.<span class="zh">我们不出具雅思或剑桥成绩。</span></li>
           <li>We do not replace a teacher. The product is built to hand a teacher one decision a day, not to take their job.<span class="zh">我们不替代教师。产品每天只给教师一个判断，不接管教学。</span></li>
           <li>We do not take a beginner to fluency. We take a student from unable to follow a lesson in English to able to follow one.<span class="zh">我们做不到从零到流利。我们做的是让学生从听不懂英文课，到能听懂。</span></li>
@@ -497,7 +525,7 @@
         <div class="ledger">
           <div class="item">
             <span class="status">Unverified</span>
-            <span class="what"><b>No teaching content has been read by a qualified teacher.</b> Every text, question and Chinese explanation was machine-written and machine-checked. The founder has read four reference files; no qualified Chinese-native teacher has reviewed any of the twenty-four a student actually meets. We track this as a debt, print the count on every build, and no automated process is permitted to clear it.</span>
+            <span class="what"><b>No teaching content has been read by a qualified teacher.</b> Every text, question and Chinese explanation was machine-written and machine-checked. The quick check's everyday words were chosen from dictionary frequency data, and its made-up words were generated in code. The founder has read six files: four reference files and, on 22 September 2026, the two files behind the quick check, approved after reading its list of made-up words. The gap sentences and the short half-word paragraphs in those files were drafted by machine, and no English teacher has read them yet. No qualified teacher has reviewed any file a student meets, and our checks list twenty-five that no person has signed off. We track this as a debt, print the count every time our checks run, and no automated process is permitted to clear it.</span>
           </div>
           <div class="item">
             <span class="status">Unverified</span>
@@ -508,18 +536,24 @@
             <span class="what"><b>Speaking has not been tested on a real phone.</b> It has been proved against a simulator and against the scoring service directly, never with a student's own device and microphone.</span>
           </div>
           <div class="item">
+            <span class="status">Unverified</span>
+            <span class="what"><b>The quick check has not yet been tried with a class.</b> It went live on 22 September 2026. Its 2 to 4 minutes is a design target, not a timing, and its pass marks have not been compared with a teacher's view of each student's level. Form A and form B are built the same way and test different words, but no student has sat both, so we have not shown that they are equally hard. Until we have, a higher level in week ten is a sign of progress, not a measurement of it.</span>
+          </div>
+          <div class="item">
             <span class="status">In progress</span>
             <span class="what"><b>The English course is twelve units of a planned twenty.</b> Forty-five target words, four units at each of A1, A2 and B1, each teaching one grammatical pattern. Twelve is the reduced figure our own build order names when a week slips, so this is the degraded plan met rather than the full one. The unlimited part, where a student reads any text they bring and the product teaches from it, is built and works.</span>
           </div>
           <div class="item">
             <span class="status">Resolved</span>
-            <span class="what"><b>Placement no longer rests on recognition alone.</b> Until 11 September a student's level came from the vocabulary section only, which measures what they recognise while the product teaches what they can produce. Their written answer now confirms or moves that level by at most one band, and the record says which of the two decided it. Resolved 17 September 2026, and left on this list rather than deleted: it was published as a fault, and a reader who saw it deserves to see it closed.</span>
+            <span class="what"><b>Placement no longer rests on recognition alone.</b> Until 11 September a student's level came from the vocabulary section only, which measures what they recognise while the product teaches what they can produce. Their written answer now confirms or moves that level by at most one band, and the record says which of the two decided it. Since 22 September the course start comes from the quick check, before the written answer exists, but every level above A1 in it asks the student to type the word, so recognition alone can never place a student above A1. Resolved 17 September 2026, and left on this list rather than deleted: it was published as a fault, and a reader who saw it deserves to see it closed.</span>
           </div>
         </div>
+        <p class="zh">这一节列出我们还没有证明的事情：所有教学内容都还没有经过合格教师审读（创始人读过六个文件，其中包括短测试的两个文件；这两个文件里的填空句子和补全单词用的短文由机器起草，还没有英语教师读过）；「语言还是概念」的判断还没有和教师的判断比对过；口语还没有在学生自己的手机上测试过；短测试还没有在一个班里用过，A、B 两套题是否一样难也还没有证明；英语课程目前是计划二十个单元中的十二个。最后一项（分级不再只看认词）已经解决：短测试里 A1 以上的每一级都要学生自己写出单词，只靠认词不可能被分到 A1 以上。</p>
       </div>
       <div class="rail">
         <div class="fig"><span class="n">14 / 20</span><span class="l">items out of 20 that must match a teacher's judgement, counted on the Chinese retries only. Not yet run</span></div>
         <div class="fig"><span class="n">0</span><span class="l">content files reviewed by a qualified teacher</span></div>
+        <div class="fig"><span class="n">25</span><span class="l">content files no person has signed off, printed every time our checks run</span></div>
       </div>
     </div>
   </section>
@@ -577,9 +611,9 @@
         <p><b>Speaking is solo.</b> No student is ever shown another student's recording, pronunciation score or transcript. There are no leaderboards anywhere in the product, and this is enforced in the database rather than in the interface.</p>
         <p><b>A student's voice.</b> Recordings are stored in Cloudflare R2. During upload, parts of a recording sit in a cache for at most 15 minutes and are then deleted automatically, whether or not anything else happens.</p>
         <p><b>Where it lives.</b> The database is in Singapore, the speech service is in Singapore, and the application runs in Singapore. Nothing routes through the United States.</p>
-        <p><b>What a teacher sees.</b> Records for students on the teacher's own roster only, enforced per row in the database. A teacher cannot open another teacher's class. Access to a student's actual voice recordings is a separate, later decision and is closed today.</p>
+        <p><b>What a teacher sees.</b> Records for students on the teacher's own roster only, enforced per row in the database. A teacher cannot open another teacher's class. On the Students page that includes each student's goal, the level they said, the level the quick check found, where they chose to start and the full-check level, and a Placement results to review list for any result a student has asked them to look at. Access to a student's actual voice recordings is a separate, later decision and is closed today.</p>
         <p><b>What a school controls.</b> Which fields appear on a parent report, and whether a CEFR level may be shown at all. A level is never sent to a parent without the school's own framing alongside it.</p>
-        <p class="zh">口语是私人的：任何学生都看不到别人的录音、发音分数或转写。没有排行榜。数据全部存放在新加坡。教师只能看到自己班级的记录。家长报告上显示哪些内容，由学校决定。</p>
+        <p class="zh">口语是私人的：任何学生都看不到别人的录音、发音分数或转写。没有排行榜。数据全部存放在新加坡。教师只能看到自己班级的记录，包括每个学生的学习目标、自己说的水平、短测试测出的水平、选的起点和完整分级的水平，以及学生请老师看的分级结果。家长报告上显示哪些内容，由学校决定。</p>
       </div>
       <div class="rail">
         <div class="fig"><span class="n">15</span><span class="l">minutes before an in-transit recording is deleted automatically</span></div>
@@ -599,7 +633,7 @@
 
   <footer>
     Ramp · Bilingual study platform for Chinese-native students learning subjects in English.<br>
-    This document describes the product as built on 11 September 2026, with the placement section updated on 17 September 2026 when the test's ceiling moved to C1, and section 8 added the same day. Figures are read from the running system, not estimated, except in section 8, which describes a check not yet run, and the marking time in the last box, which is our estimate.<br>
+    This document describes the product as built on 11 September 2026, with the placement section updated on 17 September 2026 when the test's ceiling moved to C1, and section 8 added the same day. Sections 2, 3, 5, 6, 7 and 9 were updated on 22 September 2026 for the new first run: the quick level check, the rest of the check in the first week, and week ten. Figures are read from the running system, not estimated, except the quick check's 2 to 4 minutes in section 2, which is a design target, section 8, which describes a check not yet run, and the marking time in the last box, which is our estimate.<br>
     Chinese text machine-written, pending review by a Chinese-native teacher.
   </footer>
 
